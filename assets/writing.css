@@ -1,0 +1,147 @@
+/* 写作页面：桌面阅读、连续正文和按内容选择的横向分析。 */
+.lesson { max-width: 1190px; }
+.lesson-header { border-bottom: 1px solid var(--line); padding: 10px 0 30px; margin-bottom: 26px; }
+.lesson-header h1 { font-size: 42px; letter-spacing: -1px; margin-top: 12px; line-height: 1.45; }
+.lesson-deck { color: var(--muted); font-size: 22px; max-width: 950px; margin-top: 18px; }
+.lesson-orientation { display: flex; align-items: baseline; gap: 22px; margin-top: 26px; font-size: 17px; }
+.lesson-orientation > span { flex-shrink: 0; color: var(--teal); font-weight: 600; }
+.lesson-orientation p { color: var(--muted); }
+.lesson-sidebar { overflow-y: auto; padding-top: 24px; }
+.back-book { display: block; font-size: 16px; margin-bottom: 24px; text-decoration: none; }
+.lesson-sidebar nav a { position: relative; padding: 9px 12px 9px 38px; font-size: 17px; line-height: 1.7; }
+.lesson-sidebar nav a > span { position: absolute; left: 10px; top: 11px; color: var(--muted); font-size: 13px; }
+.lesson-sidebar nav a small { font-size: 12px; line-height: 1.3; margin-top: 1px; }
+.lesson-sidebar .search { margin-bottom: 20px; }
+.lesson-sidebar .repo-link { margin-top: 24px; }
+.lesson-local-toc { display: flex; gap: 8px 20px; flex-wrap: wrap; padding: 0 0 25px; border-bottom: 1px solid var(--line); }
+.lesson-local-toc a { font-size: 15px; text-decoration: none; }
+.lesson-section { margin: 48px 0 58px; }
+.lesson-section > h2 { font-size: 29px; margin-bottom: 25px; scroll-margin-top: 20px; }
+.lesson-section > p { max-width: 970px; margin-bottom: 22px; }
+.lesson-section p { font-size: 20px; line-height: 1.95; }
+.lesson-section h3 { font-size: 22px; margin-bottom: 16px; }
+.lesson-section p + p { margin-top: 0; }
+.lesson-body .cite { font-size: 14px; }
+.lesson-body ul, .lesson-body ol { padding-left: 1.5em; }
+.lesson-body li { padding-left: .3em; margin: 10px 0; }
+.lesson table { table-layout: fixed; }
+.lesson td, .lesson tbody th { width: auto; }
+.compare-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin: 28px 0; }
+.compare-panels > section { background: #f5f7fb; border-top: 3px solid #b2bfd3; padding: 26px 28px; min-width: 0; }
+.compare-panels > section:nth-child(2) { background: #f1f8f6; border-color: #387e72; }
+.compare-panels p { font-size: 19px; margin-bottom: 15px; }
+.panel-label { display: block; font-size: 14px; color: var(--muted); margin-bottom: 17px; }
+.principle { padding: 24px 28px; margin: 28px 0; border-left: 4px solid var(--blue); background: #f5f7fc; }
+.principle p { margin-top: 12px; font-size: 19px; }
+.concept-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 30px 0; border-block: 1px solid var(--line); padding: 22px 0; }
+.concept-strip > div { padding: 0 20px; border-right: 1px solid var(--line); }
+.concept-strip > div:first-child { padding-left: 0; }
+.concept-strip > div:last-child { border: 0; }
+.concept-strip b { display: block; color: var(--teal); font-size: 20px; }
+.concept-strip span { display: block; font-size: 16px; color: var(--muted); margin-top: 7px; line-height: 1.7; }
+.argument-matrix { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 28px 0 15px; }
+.argument-matrix > div { padding: 20px; background: #f5f7fb; border-radius: 4px; border-top: 3px solid #8b9ec1; }
+.argument-matrix b { font-size: 16px; color: var(--blue); }
+.argument-matrix p { font-size: 18px; margin-top: 10px; }
+.lesson-section .example-caption { font-size: 15px; color: var(--muted); line-height: 1.8; margin: 12px 0 24px; max-width: none; }
+.annotated-block { border: 1px solid var(--line); margin: 28px 0; border-radius: 5px; overflow: hidden; }
+.annotated-block > header { background: #f1f4f9; padding: 24px 28px; }
+.annotated-block > header span { font-size: 14px; color: var(--muted); }
+.annotated-block > header h3 { margin: 8px 0 0; font-size: 23px; }
+.annotation-row { display: grid; grid-template-columns: 1.25fr 1fr; border-top: 1px solid var(--line); }
+.annotation-row > div { padding: 26px 28px; }
+.annotation-row > aside { background: #fbfcfe; padding: 26px; border-left: 1px solid var(--line); }
+.annotation-row p { font-size: 19px; margin-top: 9px; }
+.annotation-row aside b { font-size: 16px; color: var(--teal); }
+.annotation-row aside p { font-size: 17px; color: #42546a; line-height: 1.9; }
+.sentence-tag { display: block; color: var(--blue); font-size: 15px; font-weight: 600; }
+.draft-block, .evidence-note, .paragraph-demo, .running-specimen { margin: 28px 0; padding: 26px 30px; background: #f5f7fb; border: 1px solid var(--line); border-radius: 4px; }
+.draft-block > span { display: block; font-size: 14px; color: var(--muted); margin-bottom: 15px; }
+.draft-block.improved { background: #f1f8f6; border-color: #c6ded6; }
+.evidence-note { background: #fffaf0; border-color: #e4d6b6; }
+.evidence-note > strong { display: block; font-size: 16px; color: #776035; margin-bottom: 10px; }
+.evidence-note p { font-size: 18px; }
+.paragraph-demo p { margin-bottom: 16px; }
+.paragraph-demo b { color: var(--teal); }
+.revision-ladder { margin: 28px 0; border-left: 3px solid #b3c6dc; padding-left: 26px; }
+.revision-ladder > div { margin-bottom: 26px; }
+.revision-ladder > div > span { font-size: 14px; color: var(--blue); font-weight: 600; }
+.revision-ladder p { margin: 6px 0; font-size: 21px; }
+.revision-ladder small { display: block; font-size: 16px; color: var(--muted); line-height: 1.8; }
+.reasoned-steps li { font-size: 19px; }
+.running-specimen ol { margin-bottom: 0; }
+.formula-block { border-block: 1px solid var(--line); padding: 24px 10px; margin: 28px 0; }
+.formula-block > span { display: block; font-size: 15px; color: var(--muted); margin-bottom: 8px; }
+.formula-block > p { font-family: Cambria, Georgia, "Microsoft YaHei", serif; font-size: 29px; overflow-wrap: anywhere; }
+.formula-block .formula-reading { font-family: var(--body); font-size: 19px; color: var(--teal); margin-top: 10px; }
+.similarity-table td, .similarity-table th { text-align: center; }
+.lesson .similarity-table tr > :first-child { width: 24%; }
+.similarity-table .chosen { background: #e0f1eb; color: #00594f; font-weight: 700; }
+.reasoning-detail { margin: 25px 0; border: 1px solid var(--line); padding: 18px 24px; }
+.reasoning-detail summary { font-size: 19px; font-weight: 600; cursor: pointer; }
+.reasoning-detail p { margin-top: 20px; }
+.flow-comparison { display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; margin: 28px 0 12px; padding: 26px 28px; background: #f4f7fb; }
+.flow-comparison p { font-size: 18px; }
+.mini-flow { display: flex; align-items: center; gap: 10px; margin: 22px 0; }
+.mini-flow span { border: 1px solid #b8c7db; background: #fff; padding: 13px; font-size: 17px; text-align: center; }
+.mini-flow .flow-focus { border-color: var(--teal); color: var(--teal); background: #eef8f3; }
+.mini-flow b { font-size: 20px; color: var(--muted); }
+.workshop { border-top: 3px solid #407d73; margin: 28px 0; padding: 28px 30px; background: #f3f8f5; }
+.workshop h3 { color: #205f55; font-size: 24px; }
+.workshop p { font-size: 19px; }
+.workshop .eyebrow { font-size: 14px; margin-bottom: 10px; }
+.workshop details { margin-top: 22px; border-top: 1px solid #caddd2; padding-top: 17px; }
+.workshop summary { font-size: 17px; cursor: pointer; color: #205f55; font-weight: 600; }
+.workshop details p { font-size: 18px; margin-top: 18px; }
+.english-sample { font-family: Georgia, "Times New Roman", serif; line-height: 1.8 !important; overflow-wrap: anywhere; }
+.lesson-sources { border-top: 1px solid var(--line); padding-top: 24px; margin: 45px 0; }
+.lesson-sources > summary { cursor: pointer; font-size: 20px; font-weight: 600; }
+.lesson-sources > p { font-size: 17px; margin: 20px 0; color: var(--muted); }
+.lesson-sources > .source-entry { margin-bottom: 15px; }
+.lesson-pagination { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); gap: 28px; padding-top: 25px; margin: 30px 0 60px; }
+.lesson-pagination a { text-decoration: none; }
+.lesson-pagination a:last-child { text-align: right; }
+.lesson-pagination span { display: block; color: var(--muted); font-size: 15px; }
+.lesson-pagination strong { font-size: 22px; }
+.writing-library { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 30px 0; }
+.writing-library > a { display: block; padding: 25px; border: 1px solid var(--line); border-radius: 5px; text-decoration: none; color: var(--ink); }
+.writing-library > a:hover { border-color: var(--blue); background: #f7f9fd; }
+.writing-library span { color: var(--blue); font-size: 14px; }
+.writing-library h3 { font-size: 25px; margin: 12px 0; }
+.writing-library p { font-size: 17px; color: var(--muted); }
+.writing-library strong { display: block; font-size: 15px; margin-top: 20px; color: var(--blue); }
+@media (min-width: 1700px) { .lesson-local-toc { display: none; } }
+@media (max-width: 1399px) { .writing-library { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 1100px) {
+  .concept-strip, .argument-matrix { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .concept-strip { gap: 20px 0; }
+  .concept-strip > div:nth-child(3) { padding-left: 0; }
+  .concept-strip > div:nth-child(2) { border-right: 0; }
+  .compare-panels, .annotation-row, .flow-comparison { grid-template-columns: 1fr; }
+  .annotation-row > aside { border-left: 0; border-top: 1px solid var(--line); }
+}
+@media (max-width: 760px) {
+  .lesson-header h1 { font-size: 32px; letter-spacing: -.4px; }
+  .lesson-deck { font-size: 20px; }
+  .lesson-section { margin: 36px 0 44px; }
+  .lesson-section > h2 { font-size: 25px; }
+  .lesson-section p { font-size: 19px; }
+  .lesson-orientation { display: block; }
+  .lesson-orientation p { font-size: 16px; margin-top: 8px; }
+  .writing-library { grid-template-columns: 1fr; }
+  .concept-strip span { font-size: 15px; }
+  .concept-strip > div { padding-inline: 15px; }
+  .argument-matrix { grid-template-columns: 1fr; }
+  .compare-panels > section, .draft-block, .evidence-note, .paragraph-demo, .running-specimen, .workshop, .annotated-block > header, .annotation-row > div, .annotation-row > aside, .flow-comparison { padding: 22px; }
+  .lesson-header { padding-top: 0; }
+  .formula-block > p { font-size: 24px; }
+  .lesson .table-wrap { max-width: 100%; }
+  .lesson .table-wrap table { min-width: 560px; }
+  .lesson .table-wrap { overflow-x: auto; }
+}
+@media print {
+  .lesson-local-toc, .lesson-pagination, .lesson-sidebar, #source-dialog { display: none !important; }
+  .lesson { max-width: none; }
+  .lesson-section { break-inside: auto; }
+  .lesson-header h1 { font-size: 30px; }
+}

@@ -7,6 +7,20 @@ const outline = document.querySelector('#page-outline');
 const outlineLinks = document.querySelector('#outline-links');
 const sourceDialog = document.querySelector('#source-dialog');
 const sourceContent = document.querySelector('#source-content');
+const writingRoutes = {
+  'reader-first': 'argument.html',
+  'paper-title': 'title.html',
+  abstract: 'abstract.html',
+  'abstract-analysis': 'abstract.html#abstract-analysis',
+  'introduction-logic': 'introduction.html',
+  revision: 'introduction.html#intro-revision',
+  'running-example': 'method.html#running-example',
+  experiments: 'experiments.html',
+  'related-work': 'related-work.html',
+  discussion: 'discussion.html',
+  conclusion: 'conclusion.html',
+  'writing-action': 'revision.html'
+};
 
 function closeMenu() {
   menu.setAttribute('aria-expanded', 'false');
@@ -15,7 +29,12 @@ function closeMenu() {
 }
 
 function showRoute() {
-  const target = document.getElementById(decodeURIComponent(location.hash.slice(1))) || views[0];
+  const anchor = decodeURIComponent(location.hash.slice(1));
+  if (writingRoutes[anchor]) {
+    location.replace('writing/' + writingRoutes[anchor]);
+    return;
+  }
+  const target = document.getElementById(anchor) || views[0];
   const current = views.find(view => view === target || view.contains(target)) || views[0];
   views.forEach(view => { view.hidden = view !== current; });
   document.body.dataset.view = current.id;
@@ -48,15 +67,6 @@ menu.addEventListener('click', () => {
   sidebar.classList.toggle('is-open', open);
 });
 
-const annotationButton = document.querySelector('#annotation-toggle');
-annotationButton.hidden = false;
-annotationButton.addEventListener('click', () => {
-  const show = annotationButton.getAttribute('aria-pressed') !== 'true';
-  annotationButton.setAttribute('aria-pressed', String(show));
-  annotationButton.textContent = show ? '隐藏批注' : '显示批注';
-  document.querySelectorAll('.annotations').forEach(note => { note.hidden = !show; });
-});
-
 document.querySelectorAll('.cite').forEach(citation => {
   citation.addEventListener('click', event => {
     const source = document.querySelector(citation.hash);
@@ -82,8 +92,9 @@ const searchItems = [...document.querySelectorAll('h3[id], .source-entry[id]')].
       sibling = sibling.nextElementSibling;
     }
   }
-  return { id: node.id, title: node.matches('h3') ? node.textContent : node.querySelector('h3').textContent, text: parts.join(' ').toLocaleLowerCase() };
+  return { href: `#${node.id}`, title: node.matches('h3') ? node.textContent : node.querySelector('h3').textContent, text: parts.join(' ').toLocaleLowerCase() };
 });
+searchItems.push(...window.writingSearch);
 searchBox.hidden = false;
 searchInput.addEventListener('input', () => {
   results.replaceChildren();
@@ -95,7 +106,7 @@ searchInput.addEventListener('input', () => {
   results.append(status);
   matches.slice(0, 8).forEach(item => {
     const link = document.createElement('a');
-    link.href = `#${item.id}`;
+    link.href = item.href;
     link.textContent = item.title;
     results.append(link);
   });

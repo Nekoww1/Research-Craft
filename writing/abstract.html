@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="逐句拆解真实摘要，完成两轮改写，掌握信息取舍与结果表达。"><title>摘要 · 论文写作 · Research Craft</title><link rel="icon" href="../assets/mark.svg" type="image/svg+xml"><link rel="stylesheet" href="../assets/style.css"><link rel="stylesheet" href="../assets/writing.css"><script src="../assets/writing-search.js" defer></script><script src="../assets/lesson.js" defer></script></head>
+<body class="lesson-page" data-view="writing">
+<a class="skip-link" href="#main">跳到正文</a>
+<header class="site-header"><a class="header-brand" href="../index.html#orientation"><img src="../assets/mark.svg" width="34" height="34" alt=""><strong>Research Craft</strong><span>科研方法与实践</span></a><div class="header-actions"><a href="../index.html#writing">写作总览</a><a href="../index.html#sources">来源与阅读记录</a><button id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar" hidden>展开目录</button></div></header>
+<aside class="sidebar lesson-sidebar" id="sidebar" aria-label="写作模块导航"><a class="back-book" href="../index.html#writing">← 写作模块总览</a><div class="search" id="search-box" hidden><label for="search-input">在写作模块中查找</label><input id="search-input" type="search" placeholder="试试：摘要、比较、动词" autocomplete="off" aria-controls="search-results"><div id="search-results" aria-live="polite"></div></div><nav aria-label="写作页面"><p class="nav-label">论文写作 / 11 个独立页面</p><a href="argument.html"><span>01</span>全篇论证<small>Argument</small></a><a href="title.html"><span>02</span>标题<small>Title</small></a><a href="abstract.html" aria-current="page"><span>03</span>摘要<small>Abstract</small></a><a href="introduction.html"><span>04</span>引言<small>Introduction</small></a><a href="method.html"><span>05</span>方法<small>Method</small></a><a href="experiments.html"><span>06</span>实验与结果<small>Experiments</small></a><a href="figures.html"><span>07</span>图表表达<small>Figures &amp; tables</small></a><a href="related-work.html"><span>08</span>相关工作<small>Related work</small></a><a href="discussion.html"><span>09</span>讨论与局限<small>Discussion &amp; limitations</small></a><a href="conclusion.html"><span>10</span>结论<small>Conclusion</small></a><a href="revision.html"><span>11</span>修改与语言<small>Revision &amp; language</small></a></nav><a class="repo-link" href="https://github.com/Nekoww1/Research-Craft">GitHub · 内容与修订 ↗</a></aside>
+<main id="main"><article class="lesson"><header class="lesson-header"><p class="eyebrow">论文写作 / 03 / Abstract</p><h1>把研究压缩成一段完整的信息</h1><p class="lesson-deck">摘要需要让读者看清问题、改变、做法和依据；每句话都要承担具体责任。</p><div class="lesson-orientation"><span>本页重点</span><p>逐句拆解真实摘要，完成两轮改写，掌握信息取舍与结果表达。</p></div></header><nav class="lesson-local-toc" aria-label="本页内容"><a href="#abstract-purpose">1. 摘要是一份可以独立成立的研究说明</a><a href="#abstract-analysis">2. 逐句分析一个真实摘要</a><a href="#problem-compression">3. 开头怎样既短，又有具体问题</a><a href="#method-versus-label">4. 方法句需要交代关键动作，不只给名称</a><a href="#result-sentences">5. 结果句要让比较有含义</a><a href="#abstract-worked-revision">6. 完整改写：先补关系，再压缩文字</a><a href="#abstract-adaptations">7. 抽象的是信息关系，不是固定句型</a><a href="#abstract-practice">8. 练习：给自己的摘要做一次信息审计</a></nav><div class="lesson-body"><section class="lesson-section">
+<h2 id="abstract-purpose">1. 摘要是一份可以独立成立的研究说明</h2>
+<p>只读摘要的人，应当能够回答：研究处理什么具体问题，作者改变了什么，关键做法是什么，依据支持了什么结果。如果必须翻到方法第一个公式才能知道作者做了什么，摘要的信息安排就有问题。反过来，摘要也不需要让读者立刻复现算法；过多细节会挤掉判断相关性所需的信息。</p>
+<p>刘洋以 Forest Reranking 为例，将摘要的信息职责分为问题、核心工作、实现方法和达到的效果，并提醒避免术语和数学符号形成的理解障碍。Jones 在结构示意中也使用简短摘要。这里采用的是信息职责，而不是强制“四句话”；结果复杂或格式另有要求时，句数可以调整。<a class="cite" href="../index.html#S019">刘洋课件副本 · 文件 pp.41–42／页脚 26–27</a><a class="cite" href="../index.html#S002">官方整理 · 摘要</a><a class="cite" href="../index.html#S009">Jones · 文件 p.16</a></p>
+<div class="concept-strip"><div><b>问题</b><span>哪里还不够，带来什么后果</span></div><div><b>改变</b><span>本文增加了什么可识别的东西</span></div><div><b>做法</b><span>凭什么可以产生这个改变</span></div><div><b>依据</b><span>在什么条件下观察或证明了什么</span></div></div>
+<p>这四项相互限制。问题若强调在线计算，结果却只报告准确率，论证还未闭合；方法若只写“使用先进模型”，读者无法判断它与问题的关系；结果若只写“优于现有方法”，则缺少比较对象和范围。</p>
+</section>
+<section class="lesson-section">
+<h2 id="abstract-analysis">2. 逐句分析一个真实摘要</h2>
+<p>下面按原摘要四句的职责进行中文释义，并作编辑分析。释义用于看清结构，不是逐字翻译。论文发表于 2008 年，历史性能主张只在原论文的设置与比较范围内成立。<a class="cite" href="../index.html#S021">Forest Reranking · PDF p.1／会议 p.586，Abstract</a></p>
+<div class="annotated-block"><header><span>真实论文结构释义 / Forest Reranking</span><h3>一个问题怎样牵出方法和证据</h3></header>
+<div class="annotation-row"><div><span class="sentence-tag">① 问题及后果</span><p>传统 n-best 重排序受候选列表范围限制，可能把好的句法分析排除在列表之外。</p></div><aside><b>不是泛泛介绍领域</b><p>句子点出一个具体瓶颈，并解释其后果。读者因此知道后文为什么要改变候选空间。</p></aside></div>
+<div class="annotation-row"><div><span class="sentence-tag">② 核心改变</span><p>本文改为对 packed forest 重排序，以紧凑结构表示大量候选分析。</p></div><aside><b>改变与瓶颈直接相连</b><p>核心不是“再训练一个模型”，而是换一种保留与处理候选的方式。新术语旁边给出它在这里的作用。</p></aside></div>
+<div class="annotation-row"><div><span class="sentence-tag">③ 做法与困难</span><p>非局部特征使精确推断难以处理，因此采用近似算法，使训练在完整 Treebank 上可行。</p></div><aside><b>说明困难如何被处理</b><p>句子没有堆算法细节，而是解释为什么需要近似、它解决了什么可行性问题。</p></aside></div>
+<div class="annotation-row"><div><span class="sentence-tag">④ 结果与比较范围</span><p>最后报告 F-score，并与 50-best、100-best 重排序和当时相应训练条件下的系统比较。</p></div><aside><b>结果回答前面的工作</b><p>有指标和对照，也有历史范围。不能把摘要中的比较改写成“所有句法分析问题都已解决”。</p></aside></div></div>
+<p>可以复用的并不是“问题一句、方法两句、结果一句”的表面形状，而是三个连接：瓶颈决定改变；改变带来需要解释的技术困难；证据检验改变是否值得。这三个连接使摘要成为一条短论证，而不只是四类信息的拼接。</p>
+<p>也应看到它的情境条件。对数据资源论文，关键做法可能是采集与标注方案，依据可能是覆盖、质量和使用验证；对理论论文，依据可能是定理及其假设。不能为了套模板，给没有实验的论文虚构一个“提升结果”。</p>
+</section>
+<section class="lesson-section">
+<h2 id="problem-compression">3. 开头怎样既短，又有具体问题</h2>
+<p>摘要开头常见的失误是写出读者早已知道的背景，再把真正的瓶颈压缩为“然而仍存在挑战”。例如“信息检索在人们生活中越来越重要，神经网络已广泛应用”，仍没有告诉读者这篇论文需要解决哪项具体困难。</p>
+<div class="compare-panels"><section><span class="panel-label">信息不足 · 教学示例</span><p>随着大模型的发展，信息检索越来越重要。现有方法存在效率问题。我们提出一种新框架。</p></section><section><span class="panel-label">更具体的改写</span><p>逐对编码查询和文档的检索模型需要重复计算文档表示，使查询时的计算开销随候选数量增加。我们将文档表示提前计算，并在查询阶段保留细粒度匹配。</p></section></div>
+<p>改写增加了一个因果结构：为什么产生开销，本文改变了哪一步。它并没有声称所有逐对编码方法的成本都相同，也没有凭直觉宣称整体成本一定更低。完整摘要还必须补上质量、时间和其他代价的测量。</p>
+<p>有时背景仍然必要。面对跨领域读者，先用一个短语解释任务，可以避免后文失去对象；面对高度专业的场合，可以直接从未解决的限制开始。判断标准是背景是否帮助理解本文特定问题，而不是所有背景句都应删除。</p>
+</section>
+<section class="lesson-section">
+<h2 id="method-versus-label">4. 方法句需要交代关键动作，不只给名称</h2>
+<p>“提出 ABC 框架”只是命名；“结合注意力、图网络和对比学习”只是组件列表。读者还不知道这些组件如何回应瓶颈。方法句应优先保留改变输入、表示、计算或决策的关键动作。</p>
+<div class="table-wrap"><table><caption>把标签改为可理解的动作 · 教学示例</caption><thead><tr><th>草稿</th><th>可继续改进的版本</th><th>关键变化</th></tr></thead><tbody><tr><td>提出一种多阶段框架。</td><td>先用可复用表示筛出候选，再仅对保留候选进行昂贵的逐对比较。</td><td>说明阶段分工与成本安排。</td></tr><tr><td>引入一个新损失。</td><td>对保持标签不变的输入变换，约束模型输出保持一致。</td><td>交代约束对象，不急于写公式。</td></tr><tr><td>使用一个新的数据集。</td><td>构造只改变条件 C、保持条件 D 的成对样本，用于检查模型对 C 的依赖。</td><td>说明数据为何适合问题。</td></tr></tbody></table></div>
+<p>动作也要与真实实现一致。例如“保持标签不变”是需要论证的数据假设；如果变换可能改变语义，不能把它当作既定事实。摘要越简短，越需要准确选择能承受压缩的概念。</p>
+<p>可以采用“我们将 X 与 Y 分开／在 Z 条件下保留 W／通过步骤 A 避免重复 B”一类句式。它们是组织动作的工具，不是新颖性的证据。只有当动作与已有工作之间的区别被核实后，才能增加有关创新的表述。</p>
+</section>
+<section class="lesson-section">
+<h2 id="result-sentences">5. 结果句要让比较有含义</h2>
+<p>结果中最需要保留的通常是任务或数据范围、关键指标、比较对象，以及会改变结论的重要条件。无需把全部表格搬进摘要，但必须防止一个孤立的数字替代研究结果。</p>
+<div class="evidence-note"><strong>练习用虚构设定</strong><p>以下项目与数字全部为教学编写：在文档集合 A 的固定候选重排序中，同一硬件、同一批处理设置下，基线与新方法的 P95 查询延迟分别为 80、35 毫秒；nDCG@10 分别为 0.420、0.414；新方法的索引占用增加约一倍。未测集合 B，也没有显著性检验。</p></div>
+<div class="compare-panels"><section><span class="panel-label">不成立的概括</span><p>我们的方法显著提升检索效率，并保持相同精度，在各类任务上具有广泛适用性。</p><p>“显著”没有检验依据，“相同”掩盖了质量差异，“各类任务”超出设置。</p></section><section><span class="panel-label">与设定相称的表达</span><p>在集合 A 的固定候选重排序中，新方法将 P95 查询延迟从 80 毫秒降至 35 毫秒；nDCG@10 从 0.420 变为 0.414，索引占用约增加一倍。</p><p>读者可以看到速度、质量和存储的取舍；仍不能据此判断其他数据上的效果。</p></section></div>
+<p>摘要并非必须列出每项代价，但若论文以效率为核心贡献，而索引成本会实质改变使用判断，完全略去它就会造成片面印象。“相近质量”也需要场合允许的容忍范围与依据，不能由作者看到差值很小就自行宣布等价。</p>
+<p>真实论文中的结果同样需要回看实验定义。ColBERT 分别分析质量与查询成本、端到端检索、组件和离线成本；不能把某张重排序图的优势直接转换成所有检索流程的普遍结论。<a class="cite" href="../index.html#S020">ColBERT · §4 的研究问题、§4.2–4.5</a></p>
+</section>
+<section class="lesson-section">
+<h2 id="abstract-worked-revision">6. 完整改写：先补关系，再压缩文字</h2>
+<p>仍使用上一节的虚构设定，并假定方法确实将文档预编码与查询时交互分开。下面展示的是教学写作过程，不是 ColBERT 或任何真实论文的实验报告。</p>
+<div class="draft-block"><span>初稿</span><p>本文针对信息检索的效率问题提出了一个新颖框架。框架包括文档编码模块、查询编码模块和交互模块。我们在一个数据集上做了大量实验。结果说明方法非常有效。</p></div>
+<ol class="reasoned-steps"><li><strong>定位缺失信息。</strong>“效率问题”没有成因；三个模块没有说明关键计算变化；“大量”没有说明测什么；“有效”没有给出质量与成本。</li><li><strong>先写完整事实。</strong>问题是查询时重复文档编码，改变是预编码，做法是在查询时保留细粒度比较，证据是集合 A 的延迟、质量和索引测量。</li><li><strong>再按相关性压缩。</strong>保留关键动作和取舍；删除“本文针对”“大量”“非常”等不能改变理解的词；不把重要边界当成赘词删掉。</li></ol>
+<div class="draft-block improved"><span>改写稿 · 教学示例</span><p>逐对编码查询与文档会重复计算文档表示，增加候选重排序的在线开销。我们将文档预编码与查询时的细粒度交互分开，以复用文档计算。在集合 A 的固定候选重排序设置中，P95 查询延迟由 80 毫秒降至 35 毫秒，nDCG@10 由 0.420 变为 0.414，索引占用约增加一倍。这些测量呈现了该计算安排在本设置中的速度、质量与存储取舍。</p></div>
+<p>末句不再宣称“普遍有效”，而说明读者应怎样理解结果。若字数有限，可以删末句，因为前三句已经提供判断依据；却不应只删质量和存储条件，使摘要重新变成宣传语。</p>
+</section>
+<section class="lesson-section">
+<h2 id="abstract-adaptations">7. 抽象的是信息关系，不是固定句型</h2>
+<p>对于方法论文，可以按“限制—关键改变—可行性做法—结果及条件”组织；对于分析论文，可以按“未明问题—区分性设置—观察—解释边界”组织；对于资源论文，可以按“现有覆盖缺口—构造原则—资源特性—质量或使用验证”组织。这里是编辑归纳，不是两位报告者共同提出的分类。</p>
+<p>负面结果也能形成摘要，但需要具体说明被检查的对象与条件。“某方法无效”通常过宽；“在设置 C 下，增加模块 M 未改善指标 Y，进一步对照提示增益可能来自训练预算”提供了可核查的认识。提示的解释若未被充分区分，仍应保持假设强度。</p>
+<p>工作尚未完成时，可以写计划用摘要以发现缺口，但要将预期与已观察结果分开。不能为了把四项职责填满，就把预计的结果写成已经获得。投稿前再依据最终证据重写，而不是仅把将来时改成过去时。</p>
+</section>
+<section class="lesson-section">
+<h2 id="abstract-practice">8. 练习：给自己的摘要做一次信息审计</h2>
+<div class="workshop"><h3>用四种标记读自己的摘要</h3><p>分别标出问题、改变、做法、依据。一个句子可以承担多个职责；没有任何标记的句子先问是否必要。然后圈出每个“更好、更快、首次、通用、显著”，为它写出支持位置和比较范围。</p><details><summary>怎样判断修改方向</summary><p>四项都在但关系松散，补“为什么这个改变回应这个问题”；方法只有缩写，补关键动作；结果只有最高分，补比较对象和设置；背景占据大半而贡献只剩一句，重新分配篇幅。最后请一位了解相邻领域的读者复述研究，记录他无法判断的具体位置。</p></details></div>
+<p>最后做标题—摘要—结论对读。三处可以详略不同，但研究对象、主张强度和适用范围不应冲突。若摘要承诺“解释原因”，正文却只提供相关观察，应缩小摘要中的动词，而不是增加一段没有证据的解释。</p>
+</section>
+</div><details class="lesson-sources"><summary>本页依据与阅读范围</summary><p>观点和案例的具体页码见正文中的引用。教学示例与编辑方法均有标注；例子中的假设数据不能作为真实研究结果。</p><div class="source-entry" id="S019"><span>S019</span><div><h3><a href="https://github.com/fei-aiart/TechNotes/blob/master/如何撰写学术论文-刘洋（清华大学）-总结.pdf">刘洋 · 机器翻译学术论文写作方法和技巧（第三方课件副本） ↗</a></h3><p>已取得 188 页 PDF，核对封面作者、题名与 2014 年会议信息；写作相关页面选读并视觉核对。中文文本映射异常，以图像核对，不猜测乱码。</p><small>含重复动画页；引用注明文件页及页脚。未证实与原站 244 页线索的完整版本关系，第三方文件名含“总结”不等于独立新来源。</small></div></div><div class="source-entry" id="S002"><span>S002</span><div><h3><a href="https://air.tsinghua.edu.cn/info/1007/1359.htm">刘洋：如何撰写高质量科技论文 ↗</a></h3><p>清华 AIR 官方图文整理 · 2021。读取整理文字全文，未逐一辨读图中文字或观看视频。不是完整课件。</p><small>正文定位：摘要、引言、方法、报告开头与结尾。</small></div></div><div class="source-entry" id="S009"><span>S009</span><div><h3><a href="https://www.microsoft.com/en-us/research/academic-program/write-great-research-paper/">Simon Peyton Jones · How to Write a Great Research Paper ↗</a></h3><p>微软官方入口与 52 页原 PDF；本地保存，通读可提取文字，选页视觉核对。未观看视频，不称逐页视觉精读。</p><small>写作相关定位：文件 pp.4–51；重点 pp.12–25、27–32、35–44、48–51。</small></div></div><div class="source-entry" id="S021"><span>S021</span><div><h3><a href="https://aclanthology.org/P08-1067/">Liang Huang · Forest Reranking ↗</a></h3><p>ACL 2008 原论文，9 页。本地保存；选读摘要、引言、§2、§5–6及相关图表，不称全文精读或实验复现。</p><small>文件 pp.1–2、7–8／会议 pp.586–587、592–593；摘要、图 4、表 3、脚注 7、结论。</small></div></div><div class="source-entry" id="S020"><span>S020</span><div><h3><a href="https://arxiv.org/html/2004.12832v2">Khattab &amp; Zaharia · ColBERT ↗</a></h3><p>SIGIR 2020 原论文 · arXiv v2。局部阅读摘要、§1、§3.1、§3.4、§4 的研究问题、部分实验段落及 §5。未独立复现实验。</p><small>正文定位：Fig.2 的架构对照，§3.1，§4.4 消融与 §4.5 空间成本。</small></div></div></details><nav class="lesson-pagination" aria-label="前后页面"><a href="title.html"><span>← 上一页</span><strong>标题</strong></a><a href="introduction.html"><span>下一页 →</span><strong>引言</strong></a></nav></article><footer><span>Research Craft · 持续修订的教学正文</span><a href="../index.html#writing">写作总览 ↑</a></footer></main>
+<aside class="page-outline" aria-label="本页内容"><p>本页内容</p><nav><a href="#abstract-purpose">1. 摘要是一份可以独立成立的研究说明</a><a href="#abstract-analysis">2. 逐句分析一个真实摘要</a><a href="#problem-compression">3. 开头怎样既短，又有具体问题</a><a href="#method-versus-label">4. 方法句需要交代关键动作，不只给名称</a><a href="#result-sentences">5. 结果句要让比较有含义</a><a href="#abstract-worked-revision">6. 完整改写：先补关系，再压缩文字</a><a href="#abstract-adaptations">7. 抽象的是信息关系，不是固定句型</a><a href="#abstract-practice">8. 练习：给自己的摘要做一次信息审计</a></nav><a class="outline-sources" href="../index.html#sources">查阅原始材料 ↗</a></aside><dialog id="source-dialog" aria-label="原始来源与阅读范围"><div class="dialog-header"><span>原始来源与阅读范围</span><form method="dialog"><button type="submit" aria-label="关闭来源">关闭 ×</button></form></div><div id="source-content"></div><a class="all-sources-link" href="../index.html#sources">全部来源与阅读记录 →</a></dialog>
+</body></html>

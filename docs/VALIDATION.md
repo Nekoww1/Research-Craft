@@ -1,5 +1,35 @@
 # 网站验证记录
 
+## 2026-10-20 写作模块独立页扩写
+
+要发现的失败：跨页锚点和旧链接失效、正文与生成页面不同步、搜索漏正文、来源离开当前阅读，以及横屏中表格和批注挤压。失败则先修对应路径或布局，不用页面数代替教学判断。
+
+实际执行并通过：
+
+```powershell
+python -X utf8 scripts/build_writing.py --check
+python -X utf8 scripts/verify_site.py
+node --check assets/app.js
+node --check assets/lesson.js
+node --check scripts/browser_check.cjs
+node --check scripts/writing_check.cjs
+$env:NODE_PATH='C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules'
+node scripts/browser_check.cjs
+node scripts/writing_check.cjs
+git diff --check
+```
+
+- 生成同步：11 个页面、81 个可搜索小节；检查模式不写文件。
+- 静态检查：12 个 HTML、262 个页内唯一锚点、601 个链接、84 处引用；跨页目标存在，来源已登记，正文源／生成页面／文档为 UTF-8 无 BOM。
+- 浏览器：11 页逐一覆盖 1920×1080、1536×864、1366×768，主正文 20px。Chrome 确认中文为 Microsoft YaHei。逐句批注桌面并排；768／390 无整页横向溢出，表格局部滚动。
+- 交互：当前目录、前后页、返回、主站／写作跨页搜索、已知旧链接、来源弹层与 Escape、推理／练习展开、直接文件与禁用脚本阅读通过。无脚本时仍有原生来源折叠和跨页链接。
+- 视觉修复回归：矩阵列宽曾为 `[263,391,391,72,72]`，后两列表头竖排。先复现最窄列宽检查失败，再在写作样式中重设列宽。三种桌面尺寸的矩阵各列均至少 100px，复查表头正常。
+- 原站回归：三个基础模块、总览、来源、搜索通过；旧单页批注开关的断言已由独立页行为检查替代。未捕获脚本异常与本地资源错误。
+
+视觉证据在忽略目录：`.local/writing-library-1920.png`、`abstract-analysis-1920.png`、`abstract-page-1366.png`、`abstract-revision-1366.png`、`method-example-1920.png`、`writing-mobile.png`。来源视觉核对另见 `READING_NOTES.md`；软件检查不替代来源阅读或教学效果评估。
+
+`.local/` 约 32.1 MiB，含六份公开 PDF、选页渲染、文本、截图和辅助文件；不提交全文、不自动删除。未创建工作区外中转目录。尚未进行真实读者效果试验和完整无障碍审计，教学深度仍需用户审阅。
+
 ## 2026-10-20 写作章结构重构
 
 目标是核实新增分节可导航、可查阅，并在桌面横屏中保留清楚的结构与批注。静态检查通过：60 个唯一锚点、105 个链接、31 处引用；UTF-8 无 BOM、本地路径和两份 JavaScript 的语法检查通过。

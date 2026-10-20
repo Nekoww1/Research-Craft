@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="完整走过一个算例，解释公式的职责，区分训练、推断和复核细节。"><title>方法 · 论文写作 · Research Craft</title><link rel="icon" href="../assets/mark.svg" type="image/svg+xml"><link rel="stylesheet" href="../assets/style.css"><link rel="stylesheet" href="../assets/writing.css"><script src="../assets/writing-search.js" defer></script><script src="../assets/lesson.js" defer></script></head>
+<body class="lesson-page" data-view="writing">
+<a class="skip-link" href="#main">跳到正文</a>
+<header class="site-header"><a class="header-brand" href="../index.html#orientation"><img src="../assets/mark.svg" width="34" height="34" alt=""><strong>Research Craft</strong><span>科研方法与实践</span></a><div class="header-actions"><a href="../index.html#writing">写作总览</a><a href="../index.html#sources">来源与阅读记录</a><button id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar" hidden>展开目录</button></div></header>
+<aside class="sidebar lesson-sidebar" id="sidebar" aria-label="写作模块导航"><a class="back-book" href="../index.html#writing">← 写作模块总览</a><div class="search" id="search-box" hidden><label for="search-input">在写作模块中查找</label><input id="search-input" type="search" placeholder="试试：摘要、比较、动词" autocomplete="off" aria-controls="search-results"><div id="search-results" aria-live="polite"></div></div><nav aria-label="写作页面"><p class="nav-label">论文写作 / 11 个独立页面</p><a href="argument.html"><span>01</span>全篇论证<small>Argument</small></a><a href="title.html"><span>02</span>标题<small>Title</small></a><a href="abstract.html"><span>03</span>摘要<small>Abstract</small></a><a href="introduction.html"><span>04</span>引言<small>Introduction</small></a><a href="method.html" aria-current="page"><span>05</span>方法<small>Method</small></a><a href="experiments.html"><span>06</span>实验与结果<small>Experiments</small></a><a href="figures.html"><span>07</span>图表表达<small>Figures &amp; tables</small></a><a href="related-work.html"><span>08</span>相关工作<small>Related work</small></a><a href="discussion.html"><span>09</span>讨论与局限<small>Discussion &amp; limitations</small></a><a href="conclusion.html"><span>10</span>结论<small>Conclusion</small></a><a href="revision.html"><span>11</span>修改与语言<small>Revision &amp; language</small></a></nav><a class="repo-link" href="https://github.com/Nekoww1/Research-Craft">GitHub · 内容与修订 ↗</a></aside>
+<main id="main"><article class="lesson"><header class="lesson-header"><p class="eyebrow">论文写作 / 05 / Method</p><h1>让读者能够跟着方法走一遍</h1><p class="lesson-deck">从任务和基线出发，用贯穿示例建立直觉，再进入符号、算法与实现条件。</p><div class="lesson-orientation"><span>本页重点</span><p>完整走过一个算例，解释公式的职责，区分训练、推断和复核细节。</p></div></header><nav class="lesson-local-toc" aria-label="本页内容"><a href="#method-contract">1. 方法需要同时支持理解与复核</a><a href="#baseline-first">2. 先讲清基线，才看得见改变</a><a href="#running-example">3. 一个贯穿示例，要保留真正的困难</a><a href="#worked-maxsim">4. 把公式真正算一遍</a><a href="#formalization">5. 从算例进入定义和算法</a><a href="#training-inference">6. 分开训练、推断和资源口径</a><a href="#method-rationale">7. 说明设计理由，同时保留替代选择</a><a href="#method-practice">8. 练习：不用代码，把一个输入走到输出</a></nav><div class="lesson-body"><section class="lesson-section">
+<h2 id="method-contract">1. 方法需要同时支持理解与复核</h2>
+<p>读者首先需要理解输入是什么、输出是什么，以及为什么这个改变与问题有关；随后才会检查算法是否完整、假设是否合理、实现细节是否足以复核。只写直觉会留下关键步骤，只写公式又会使读者无法判断公式为何出现。</p>
+<p>刘洋建议必要时先解释背景和基线，利用贯穿示例建立对比，再进入形式化。Jones 也强调先传达直觉，用例子引出一般情形。二者都在处理理解顺序，而不是鼓励用简单故事取代严格定义。<a class="cite" href="../index.html#S019">文件 pp.96–102／页脚 48–51</a><a class="cite" href="../index.html#S009">文件 pp.35–39</a></p>
+<div class="concept-strip"><div><b>任务</b><span>已知什么，要输出什么</span></div><div><b>改变</b><span>基线在哪一步不同</span></div><div><b>机制</b><span>算例怎样经过每个关键步骤</span></div><div><b>一般化</b><span>符号、算法、假设与实施条件</span></div></div>
+<p>方法的叙述顺序可以与程序执行顺序不同。训练可能在真实系统中先发生，但为了理解推断行为，读者可能需要先看到模型如何为一个输入产生输出，再理解它如何学到参数。无论采用哪个顺序，都应明确训练和使用时各自可获得的信息。</p>
+</section>
+<section class="lesson-section">
+<h2 id="baseline-first">2. 先讲清基线，才看得见改变</h2>
+<p>当新方法是对熟悉方案的一项修改时，最直接的组织往往是：简述基线的信息流，指出本文改变哪一步，再解释改变的后果。背景应只保留理解差异所需的部分，避免把方法章变成独立教材。</p>
+<div class="compare-panels"><section><span class="panel-label">基线叙述 · 教学示例</span><h3>逐对联合计算</h3><p>给定查询 q 和候选文档 d，将二者一起送入编码模型，直接获得配对分数。每个新的查询—文档组合都可能需要重新进行联合计算。</p></section><section><span class="panel-label">改变叙述 · 教学示例</span><h3>分开表示，稍后比较</h3><p>先分别得到查询和文档的 token 表示。文档部分可在查询之前计算；查询到来后，再用两组表示完成细粒度比较。</p></section></div>
+<p>这个对照解释的是计算安排，而不是宣称某类模型必然更优。它省略了候选生成、索引和训练细节。真实论文 ColBERT 的核心采用独立编码后的 late interaction，但完整检索流程和近似索引另有说明，不能用上面的两框概览替代全部方法。<a class="cite" href="../index.html#S020">ColBERT · §3.1、§3.4</a></p>
+<p>介绍每个组件时，先说它接受什么、产生什么，以及为什么需要它。若三段都以“为了进一步提升性能，我们设计……”开头，读者仍然无法知道各组件分别解决什么问题。可以将这类动机改写成可检查的局部目标。</p>
+</section>
+<section class="lesson-section">
+<h2 id="running-example">3. 一个贯穿示例，要保留真正的困难</h2>
+<p>贯穿示例的价值在于反复使用同一个对象：引入输入，走过基线，展示改变，再把符号映射回同一对象。刘洋的课件用词语对齐图展示这一安排；Forest Reranking 则在引出森林的形式定义前，先用具有附着歧义的句子说明两种分析如何共享结构。<a class="cite" href="../index.html#S019">文件 pp.97–98／页脚 49–50</a><a class="cite" href="../index.html#S021">文件 p.2／会议 p.587，§2</a></p>
+<p>选择示例时先问：本文关键决策发生在哪一步？如果方法处理歧义，例子必须有歧义；如果方法依赖约束，例子必须让约束起作用；如果算法有失败条件，最好另给一个最小失败例。一个所有候选都轻松区分的“玩具例子”，可能掩盖核心问题。</p>
+<div class="running-specimen"><p class="eyebrow">贯穿教学示例 / 不是真实检索输出</p><h3>查询：“申请 奖学金”</h3><p>候选文档片段：“奖学金 申请 截止”。暂时把三个词视为三个位置，忽略真实 tokenizer、特殊 token 和长度处理，以专门解释 MaxSim 的聚合关系。</p><ol><li>文档预处理：得到三个位置的向量并保存。</li><li>查询到来：得到两个查询位置的向量。</li><li>比较：为每个查询位置寻找文档中最相似的位置。</li><li>聚合：把两个查询位置的最好匹配相加。</li></ol></div>
+<p>这里简化了编码过程，但没有删除“每个查询位置分别寻找匹配”的关键关系。若把整篇文档先平均成一个向量，例子就已经换了方法，不能继续用于解释同一个 MaxSim。</p>
+</section>
+<section class="lesson-section">
+<h2 id="worked-maxsim">4. 把公式真正算一遍</h2>
+<p>ColBERT 的一个核心打分关系，是对每个查询 token 找出文档 token 的最大相似度，再求和。下表使用人工编写的相似度，仅演示这一关系；这些数值未由模型计算，也不表示实际词义相似度。<a class="cite" href="../index.html#S020">原论文 · §3.1，late interaction</a></p>
+<div class="table-wrap"><table class="similarity-table"><caption>教学相似度矩阵：每行先取最大值</caption><thead><tr><th>查询位置＼文档位置</th><th>奖学金</th><th>申请</th><th>截止</th><th>本行最大值</th></tr></thead><tbody><tr><th>申请</th><td>0.2</td><td class="chosen">0.9</td><td>0.1</td><td>0.9</td></tr><tr><th>奖学金</th><td class="chosen">0.8</td><td>0.1</td><td>0.3</td><td>0.8</td></tr></tbody></table></div>
+<div class="formula-block"><span>一般打分关系</span><p>S(q, d) = ∑<sub>i</sub> max<sub>j</sub> sim(q<sub>i</sub>, d<sub>j</sub>)</p><p class="formula-reading">算例中：S = 0.9 + 0.8 = 1.7</p></div>
+<p>q<sub>i</sub>、d<sub>j</sub> 分别表示查询和文档第 i、j 个位置的向量；sim 是相似度。内层 max 回答“这个查询位置在文档中最像谁”，外层求和回答“所有查询位置分别匹配得怎样”。论文还有向量归一化、编码和索引等具体设计，本算例只解释聚合。</p>
+<details class="reasoning-detail"><summary>为什么不是取整个矩阵的最大值，或把全部格子相加？</summary><p>整个矩阵的最大值只有 0.9，会让一个查询位置的强匹配代替整个查询；全部格子求和得到 2.4，则把本例中每个弱匹配也加进来。逐行最大值再求和保留了不同的聚合假设。理解这一差异以后，读者才有条件讨论它可能忽略什么。</p></details>
+<p>这个关系也不要求一一配对：两个查询位置可以选择同一个文档位置。它还不直接编码查询词序之间的全部关系。讨论这些性质时，应区分打分规则的形式属性、编码器可能已包含的上下文，以及真实结果中实际观察到的行为。</p>
+</section>
+<section class="lesson-section">
+<h2 id="formalization">5. 从算例进入定义和算法</h2>
+<p>例子建立直觉后，需要补全一般情形：输入集合、表示维度、候选范围、目标函数和算法步骤。每个新符号出现时，读者应知道它指向什么；同一个符号也不应在相邻小节突然换义。刘洋课件明确提醒符号应有定义，必要时使用符号表。<a class="cite" href="../index.html#S019">文件 p.160／页脚 76</a></p>
+<div class="table-wrap"><table><caption>形式化信息怎样分层 · 编辑方法</caption><thead><tr><th>层次</th><th>该说明什么</th><th>常见遗漏</th></tr></thead><tbody><tr><td>任务定义</td><td>输入、输出、可用信息、优化或评价目标。</td><td>训练时信息与测试时信息混用。</td></tr><tr><td>模型定义</td><td>表示、参数、每步变换、关键假设。</td><td>维度不明，函数只有名字没有作用。</td></tr><tr><td>算法</td><td>执行顺序、终止条件、近似和边界情况。</td><td>用“优化该目标”代替求解步骤。</td></tr><tr><td>实施细节</td><td>影响结果的设置及复核入口。</td><td>正文、附录和代码中的默认值冲突。</td></tr></tbody></table></div>
+<p>公式的职责也需要明确：它是在定义一个分数，表达一个优化目标，还是陈述一个已证明的性质？写出目标函数并不意味着求解全局最优；写出概率形式也不意味着概率已经校准。动词应该与公式承担的职责一致。</p>
+<p>伪代码适合表达顺序、分支和循环，公式适合表达关系，图适合表达数据流与结构。三者不必把相同细节重复三遍。一个有用的组合是：图交代整体，伪代码说明执行，公式精确定义关键一步。</p>
+</section>
+<section class="lesson-section">
+<h2 id="training-inference">6. 分开训练、推断和资源口径</h2>
+<p>机器学习方法章尤其需要交代训练用什么样本、标签或反馈，优化什么目标，如何产生负例或候选；推断时接受什么输入，是否依赖训练外部资源，怎样生成最终输出。这里是编辑组织，不意味着所有论文都必须使用相同损失或采样方式。</p>
+<p>一个典型信息缺口是：方法图展示了推断流程，损失函数却默认存在一个没有介绍的负例集合。读者无法判断负例来自随机采样、检索结果还是人工标注；这些选择可能实质改变训练。应在需要的地方解释其来源和使用范围。</p>
+<p>效率分析也应分阶段。预计算减少查询时计算，可能增加离线编码、索引空间或更新成本。对于 n 个文档位置、m 个查询位置、k 维向量，直接计算本页所有两两相似度具有与 m、n、k 相关的开销，但这不等于完整检索系统的运行时间：候选生成、近似索引、批处理与硬件都会参与。不要把一个局部复杂度式直接写成端到端加速证明。</p>
+<p>实现细节应优先报告会改变理解和复核的部分：预处理、长度截断、随机性、训练停止条件、模型选择、硬件与软件环境等。具体需要哪些，由研究决定；不应将所有依赖版本挤入方法正文，也不应把关键决策只留在无法定位的代码里。</p>
+</section>
+<section class="lesson-section">
+<h2 id="method-rationale">7. 说明设计理由，同时保留替代选择</h2>
+<p>读者不仅问“怎样做”，也问“为什么这样做”。有时答案来自理论约束，有时是工程目标，有时只是需要实验比较的假设。应该分别写清，而不把所有选择都包装成已经被证明的最佳方案。</p>
+<div class="compare-panels"><section><span class="panel-label">过强的理由 · 教学示例</span><p>最大值聚合能够捕捉全部语义，因此我们采用 MaxSim。</p></section><section><span class="panel-label">与依据相称的理由</span><p>最大值聚合允许每个查询位置保留一个最强局部匹配。它与平均聚合保留的信息不同；具体质量和代价需要通过相应对照检验。</p></section></div>
+<p>设计解释不能只复述目标。“使用该模块以提升性能”没有说明机制；“为避免每次查询重新编码文档，我们将文档编码移到离线阶段”则建立了动作与目标的关系。后者仍需测量代价，但至少让读者知道设计在做什么。</p>
+<p>还可以给一个失败或边界例：什么输入会让局部匹配误导整体判断？什么更新频率会使预计算不划算？若尚未测量，应把它作为待检验问题，而不是编写一条假想失败曲线。</p>
+</section>
+<section class="lesson-section">
+<h2 id="method-practice">8. 练习：不用代码，把一个输入走到输出</h2>
+<div class="workshop"><h3>为自己的方法选择一个最小但不平凡的输入</h3><p>列出基线如何处理它，新方法改变哪一步，各步产生什么中间对象。然后把正文中每个符号贴回相应对象。最后换一个输入，检查哪些解释只对第一个例子成立。</p><details><summary>参考诊断</summary><p>无法得到中间对象，可能是步骤缺失；无法说明为什么需要该步，可能是动机缺失；例子跑通但无法一般化，需要定义和假设；只有好例子而没有可讨论的失败边界，可能尚未理解方法的限制。不要只靠给图增加颜色来掩盖这些问题。</p></details></div>
+</section>
+</div><details class="lesson-sources"><summary>本页依据与阅读范围</summary><p>观点和案例的具体页码见正文中的引用。教学示例与编辑方法均有标注；例子中的假设数据不能作为真实研究结果。</p><div class="source-entry" id="S019"><span>S019</span><div><h3><a href="https://github.com/fei-aiart/TechNotes/blob/master/如何撰写学术论文-刘洋（清华大学）-总结.pdf">刘洋 · 机器翻译学术论文写作方法和技巧（第三方课件副本） ↗</a></h3><p>已取得 188 页 PDF，核对封面作者、题名与 2014 年会议信息；写作相关页面选读并视觉核对。中文文本映射异常，以图像核对，不猜测乱码。</p><small>含重复动画页；引用注明文件页及页脚。未证实与原站 244 页线索的完整版本关系，第三方文件名含“总结”不等于独立新来源。</small></div></div><div class="source-entry" id="S009"><span>S009</span><div><h3><a href="https://www.microsoft.com/en-us/research/academic-program/write-great-research-paper/">Simon Peyton Jones · How to Write a Great Research Paper ↗</a></h3><p>微软官方入口与 52 页原 PDF；本地保存，通读可提取文字，选页视觉核对。未观看视频，不称逐页视觉精读。</p><small>写作相关定位：文件 pp.4–51；重点 pp.12–25、27–32、35–44、48–51。</small></div></div><div class="source-entry" id="S020"><span>S020</span><div><h3><a href="https://arxiv.org/html/2004.12832v2">Khattab &amp; Zaharia · ColBERT ↗</a></h3><p>SIGIR 2020 原论文 · arXiv v2。局部阅读摘要、§1、§3.1、§3.4、§4 的研究问题、部分实验段落及 §5。未独立复现实验。</p><small>正文定位：Fig.2 的架构对照，§3.1，§4.4 消融与 §4.5 空间成本。</small></div></div><div class="source-entry" id="S021"><span>S021</span><div><h3><a href="https://aclanthology.org/P08-1067/">Liang Huang · Forest Reranking ↗</a></h3><p>ACL 2008 原论文，9 页。本地保存；选读摘要、引言、§2、§5–6及相关图表，不称全文精读或实验复现。</p><small>文件 pp.1–2、7–8／会议 pp.586–587、592–593；摘要、图 4、表 3、脚注 7、结论。</small></div></div></details><nav class="lesson-pagination" aria-label="前后页面"><a href="introduction.html"><span>← 上一页</span><strong>引言</strong></a><a href="experiments.html"><span>下一页 →</span><strong>实验与结果</strong></a></nav></article><footer><span>Research Craft · 持续修订的教学正文</span><a href="../index.html#writing">写作总览 ↑</a></footer></main>
+<aside class="page-outline" aria-label="本页内容"><p>本页内容</p><nav><a href="#method-contract">1. 方法需要同时支持理解与复核</a><a href="#baseline-first">2. 先讲清基线，才看得见改变</a><a href="#running-example">3. 一个贯穿示例，要保留真正的困难</a><a href="#worked-maxsim">4. 把公式真正算一遍</a><a href="#formalization">5. 从算例进入定义和算法</a><a href="#training-inference">6. 分开训练、推断和资源口径</a><a href="#method-rationale">7. 说明设计理由，同时保留替代选择</a><a href="#method-practice">8. 练习：不用代码，把一个输入走到输出</a></nav><a class="outline-sources" href="../index.html#sources">查阅原始材料 ↗</a></aside><dialog id="source-dialog" aria-label="原始来源与阅读范围"><div class="dialog-header"><span>原始来源与阅读范围</span><form method="dialog"><button type="submit" aria-label="关闭来源">关闭 ×</button></form></div><div id="source-content"></div><a class="all-sources-link" href="../index.html#sources">全部来源与阅读记录 →</a></dialog>
+</body></html>

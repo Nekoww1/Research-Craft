@@ -1,0 +1,13 @@
+[
+  {"slug":"argument","label":"全篇论证","english":"Argument","title":"先把一篇论文的论证接起来","deck":"从一句核心见解，到挑战、贡献、方法和证据的逐项对应。","summary":"提炼核心见解，区分工作清单与知识贡献，安排读者理解的顺序。"},
+  {"slug":"title","label":"标题","english":"Title","title":"让标题准确地找到读者","deck":"用有限的词，交代研究对象、关键区别和承诺范围。","summary":"分析真实标题，比较命名方式，检查关键词、具体性与过度承诺。"},
+  {"slug":"abstract","label":"摘要","english":"Abstract","title":"把研究压缩成一段完整的信息","deck":"摘要需要让读者看清问题、改变、做法和依据；每句话都要承担具体责任。","summary":"逐句拆解真实摘要，完成两轮改写，掌握信息取舍与结果表达。"},
+  {"slug":"introduction","label":"引言","english":"Introduction","title":"让读者理解这项研究为什么必要","deck":"把问题、已有能力、具体挑战、解决思路和贡献组织成连续的推理。","summary":"分析真实引言的推进，构造段落，检查贡献与证据，修复逻辑断点。"},
+  {"slug":"method","label":"方法","english":"Method","title":"让读者能够跟着方法走一遍","deck":"从任务和基线出发，用贯穿示例建立直觉，再进入符号、算法与实现条件。","summary":"完整走过一个算例，解释公式的职责，区分训练、推断和复核细节。"},
+  {"slug":"experiments","label":"实验与结果","english":"Experiments","title":"让每组实验回答一个清楚的主张","deck":"设置建立比较的含义，结果给出观察，分析说明这些观察支持到哪里。","summary":"规划证据，解释基线与消融，拆解真实结果段，保留不确定性和失败信息。"},
+  {"slug":"figures","label":"图表表达","english":"Figures & tables","title":"让图表承担解释与比较","deck":"决定用什么展示、读者先看哪里，以及图注需要留下哪些独立可读的信息。","summary":"比较曲线与表格的用途，逐步修改图注，避免视觉顺序和论证顺序冲突。"},
+  {"slug":"related-work","label":"相关工作","english":"Related work","title":"写清自己的工作处在什么位置","deck":"组织关系、承认继承、说明区别，把文献列表变成有依据的知识地图。","summary":"从真实段落学习分组和比较，处理最近工作、位置取舍与引用责任。"},
+  {"slug":"discussion","label":"讨论与局限","english":"Discussion & limitations","title":"解释发现，也交代理解的边界","deck":"分开观察、解释和推广，让局限真正改变读者的使用判断。","summary":"分析意外结果，比较解释强度，写出具体局限及其后果和下一项验证。"},
+  {"slug":"conclusion","label":"结论","english":"Conclusion","title":"用证据支持的认识结束文章","deck":"从做了哪些事，上升到读者现在可以理解、判断或使用什么。","summary":"拆解真实结论，区分贡献、意义与未来工作，防止末段突然放大主张。"},
+  {"slug":"revision","label":"修改与语言","english":"Revision & language","title":"把草稿改成读者能够理解的论文","deck":"先修论证，再修段落和句子；把读者反馈变成可执行的修改。","summary":"进行逆向提纲、跨节核对、长句拆分、动词修改与有条件的英语表达练习。"}
+]

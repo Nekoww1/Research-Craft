@@ -28,34 +28,41 @@ class SiteParser(HTMLParser):
 
 
 def main():
-    parser = SiteParser()
-    html = (ROOT / 'index.html').read_text(encoding='utf-8')
-    parser.feed(html)
-    assert len(parser.ids) == len(set(parser.ids)), '重复 ID 会使跳转不确定'
-    ids = set(parser.ids)
-    for target in parser.links + parser.assets:
-        url = urlsplit(target)
-        if url.scheme or url.netloc:
-            continue
-        if url.path:
-            assert (ROOT / unquote(url.path)).is_file(), f'文件缺失: {target}'
-        elif url.fragment:
-            assert unquote(url.fragment) in ids, f'锚点缺失: {target}'
+    files = [ROOT / 'index.html', *sorted((ROOT / 'writing').glob('*.html'))]
+    parsed = {}
+    for path in files:
+        parser = SiteParser()
+        parser.feed(path.read_text(encoding='utf-8'))
+        assert len(parser.ids) == len(set(parser.ids)), f'重复 ID: {path.name}'
+        parsed[path.resolve()] = parser
     registry = (ROOT / 'docs/SOURCES.md').read_text(encoding='utf-8')
-    for target in parser.citations:
-        assert re.fullmatch(r'#S\d{3}', target), f'来源格式异常: {target}'
-        assert target[1:] in registry, f'来源目录未登记: {target}'
+    for path, parser in parsed.items():
+        for target in parser.links + parser.assets:
+            url = urlsplit(target)
+            if url.scheme or url.netloc:
+                continue
+            destination = (path.parent / unquote(url.path)).resolve() if url.path else path
+            assert destination.is_file(), f'{path.name} 文件缺失: {target}'
+            if url.fragment:
+                assert destination in parsed, f'锚点目标未纳入检查: {target}'
+                assert unquote(url.fragment) in parsed[destination].ids, f'{path.name} 锚点缺失: {target}'
+        for target in parser.citations:
+            source = urlsplit(target).fragment
+            assert re.fullmatch(r'S\d{3}', source), f'来源格式异常: {target}'
+            assert source in registry, f'来源目录未登记: {target}'
+    html = (ROOT / 'index.html').read_text(encoding='utf-8')
     for chapter in ('taste', 'reading', 'evidence', 'writing'):
         assert f'<article id="{chapter}"' in html, f'章节缺失: {chapter}'
     for path in ROOT.rglob('*'):
         if any(part in ('.git', '.local', 'node_modules', '__pycache__') for part in path.parts):
             continue
-        if path.suffix in ('.md', '.html', '.css', '.js', '.svg', '.py', '.cjs'):
+        if path.suffix in ('.md', '.html', '.css', '.js', '.svg', '.py', '.cjs', '.json'):
             data = path.read_bytes()
             assert not data.startswith(b'\xef\xbb\xbf'), f'UTF-8 BOM: {path.name}'
             data.decode('utf-8', errors='strict')
-    print(f'PASS: {len(ids)} 个唯一锚点、{len(parser.links)} 个链接、'
-          f'{len(parser.citations)} 处就近引用；本地文件与 UTF-8 无 BOM 检查通过。')
+    print(f'PASS: {len(parsed)} 个 HTML 页面、{sum(len(p.ids) for p in parsed.values())} 个页内唯一锚点、'
+          f'{sum(len(p.links) for p in parsed.values())} 个链接、'
+          f'{sum(len(p.citations) for p in parsed.values())} 处就近引用；跨页路径、锚点与 UTF-8 无 BOM 检查通过。')
 
 
 if __name__ == '__main__':

@@ -1,5 +1,35 @@
 # 初始来源目录
 
+## 2026-10-20 写作模块分页扩写：本次新增证据
+
+本段覆盖下文较早状态。**S001 原站下载仍失败；S019 已实际取得并选读，二者的版本关系尚未完全核实。** 六份 PDF 保存在忽略目录 `.local/pdfs/` 供本机核对，不随站点提交或再分发；可追溯的观点与页码记在仓库中。
+
+- **S009**：官方 52 页 PDF 本地保存，通读可提取文字，视觉核对文件 pp.1、13、23、38、48、50；部分封面／截图页提取为空，不能称全页视觉精读。写作、贡献、直觉、相关工作、反馈、视觉结构、主动语态与直接语言用于本轮教学。
+- **S019**：GitHub raw 文件实际为 **188 个文件页**，含多次重复动画页，封面为刘洋《机器翻译学术论文写作方法和技巧》，第十届全国机器翻译研讨会，2014 年 11 月，中国澳门。文件名含“总结”，不能据此当成第三方独立方法总结；也不能未经比对当作原站 244 页版本完整镜像。中文字形映射异常，文本提取不能可靠恢复中文；本轮使用选页渲染与视觉核对，未猜测乱码。实际页码表见 `READING_NOTES.md`。
+- **S021**：原 9 页论文保存；扩读文件 pp.1–2、7–8 的摘要、引言、§2、§5–6、图 4、表 3、脚注 7，视觉核对 p.7。仍未阅读全文或复现实验。
+- **S002**：再次核对官方整理的写作段落。S020 沿用已读的 §3.1、§3.4、§4 研究问题和相关实验段落，没有冒记新全文阅读。
+
+### S022 · Improving Tree-to-Tree Translation with Packed Forests
+
+- 作者／年份：Yang Liu、Yajuan Lü、Qun Liu，ACL-IJCNLP 2009，pp.558–566。
+- 原始入口：https://aclanthology.org/P09-1063/ ；PDF：https://aclanthology.org/P09-1063.pdf
+- 从 S019 页脚 31–33 的示例追源；下载 9 页 PDF，读取文件 p.1 摘要与引言。
+- 用途：标题信息安排、引言从已有能力到两项挑战再到方法的结构分析。未将其当作现代机器翻译性能结论，未阅读全文。
+
+### S023 · Parsing with Compositional Vector Grammars
+
+- 作者／年份：Richard Socher、John Bauer、Christopher D. Manning、Andrew Y. Ng，ACL 2013，pp.455–465。
+- 原始入口：https://aclanthology.org/P13-1045/ ；PDF：https://aclanthology.org/P13-1045.pdf
+- 从 S019 页脚 62–63 追源；下载 11 页 PDF，读取文件 pp.2–3 的 §2 相关工作及前后衔接段。
+- 用途：两条研究路线的分组、明确承认继承、与最近模型的具体差异。未完整评审模型和实验。
+
+### S024 · Cooooooooooooooollllllllllllll!!!!!!!!!!!!!! Using Word Lengthening to Detect Sentiment in Microblogs
+
+- 作者／年份：Samuel Brody、Nicholas Diakopoulos，EMNLP 2011，pp.562–570。
+- 原始入口：https://aclanthology.org/D11-1052/ ；PDF：https://aclanthology.org/D11-1052.pdf
+- 从 S019 页脚 24 追源；下载 9 页 PDF，只核对首页标题与摘要，确认创意形式和研究现象的关系。
+- 用途：标题页的短案例；未阅读全文、未复现情感识别实验。
+
 ## 2026-10-20 首版实施核实
 
 写作章重构补充：重新核对 S002 的全部写作部分；S009 增补结构、相关工作、credit 与反馈的局部文字阅读，主要定位为文件 pp.15–24、27–32、36–44；S020 增补 §4 研究问题及部分实验段落。来源身份不变，仍不称课件逐页精读或论文复现。对应教学与边界见 [WRITING_STRUCTURE.md](WRITING_STRUCTURE.md)。
