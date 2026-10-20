@@ -1,8 +1,45 @@
-// 正文、来源和原生折叠内容均由 HTML 提供；脚本只增强查阅。
-document.body.classList.add('js-enabled');
-
+// HTML 保留全部正文；脚本提供章节切换和就近查阅。
 const menu = document.querySelector('#menu-toggle');
 const sidebar = document.querySelector('#sidebar');
+const views = [...document.querySelectorAll('main > section[id], main > article[id]')];
+const navLinks = [...sidebar.querySelectorAll('nav a')];
+const outline = document.querySelector('#page-outline');
+const outlineLinks = document.querySelector('#outline-links');
+const sourceDialog = document.querySelector('#source-dialog');
+const sourceContent = document.querySelector('#source-content');
+
+function closeMenu() {
+  menu.setAttribute('aria-expanded', 'false');
+  menu.textContent = '展开目录';
+  sidebar.classList.remove('is-open');
+}
+
+function showRoute() {
+  const target = document.getElementById(decodeURIComponent(location.hash.slice(1))) || views[0];
+  const current = views.find(view => view === target || view.contains(target)) || views[0];
+  views.forEach(view => { view.hidden = view !== current; });
+  document.body.dataset.view = current.id;
+  navLinks.forEach(link => {
+    if (link.hash === `#${current.id}`) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
+  outlineLinks.replaceChildren();
+  [...current.querySelectorAll('h3[id]')].forEach(heading => {
+    const link = document.createElement('a');
+    link.href = `#${heading.id}`;
+    link.textContent = heading.textContent;
+    outlineLinks.append(link);
+  });
+  outline.hidden = current.id === 'orientation' || current.id === 'sources';
+  closeMenu();
+  if (sourceDialog.open) sourceDialog.close();
+  requestAnimationFrame(() => {
+    if (target === current) window.scrollTo({ top: 0, behavior: 'instant' });
+    else target.scrollIntoView({ behavior: 'instant', block: 'start' });
+    document.title = `${current.querySelector('h1, h2').textContent.replace(/\s+/g, ' ').trim()} · Research Craft`;
+  });
+}
+
 menu.hidden = false;
 menu.addEventListener('click', () => {
   const open = menu.getAttribute('aria-expanded') !== 'true';
@@ -10,34 +47,6 @@ menu.addEventListener('click', () => {
   menu.textContent = open ? '收起目录' : '展开目录';
   sidebar.classList.toggle('is-open', open);
 });
-
-const navLinks = [...document.querySelectorAll('nav a')];
-function closeMenu() {
-  menu.setAttribute('aria-expanded', 'false');
-  menu.textContent = '展开目录';
-  sidebar.classList.remove('is-open');
-}
-function markSection(id) {
-  navLinks.forEach(link => {
-    if (link.hash === `#${id}`) link.setAttribute('aria-current', 'location');
-    else link.removeAttribute('aria-current');
-  });
-}
-navLinks.forEach(link => link.addEventListener('click', () => {
-  closeMenu();
-  markSection(link.hash.slice(1));
-}));
-// 依据当前几何位置判定章节，跨越长章节快速跳转时也保持一致。
-const chapters = [...document.querySelectorAll('main > section[id], main > article[id]')];
-function markCurrentChapter() {
-  const current = chapters.reduce((selected, chapter) =>
-    chapter.getBoundingClientRect().top <= innerHeight * 0.3 ? chapter : selected, chapters[0]);
-  markSection(current.id);
-}
-window.addEventListener('scroll', markCurrentChapter, { passive: true });
-window.addEventListener('resize', markCurrentChapter);
-window.addEventListener('hashchange', markCurrentChapter);
-requestAnimationFrame(markCurrentChapter);
 
 const annotationButton = document.querySelector('#annotation-toggle');
 annotationButton.hidden = false;
@@ -48,11 +57,22 @@ annotationButton.addEventListener('click', () => {
   document.querySelectorAll('.annotations').forEach(note => { note.hidden = !show; });
 });
 
+document.querySelectorAll('.cite').forEach(citation => {
+  citation.addEventListener('click', event => {
+    const source = document.querySelector(citation.hash);
+    event.preventDefault();
+    const copy = source.cloneNode(true);
+    copy.removeAttribute('id');
+    sourceContent.replaceChildren(copy);
+    sourceDialog.showModal();
+  });
+});
+sourceDialog.querySelector('.all-sources-link').addEventListener('click', () => sourceDialog.close());
+
 const searchBox = document.querySelector('#search-box');
 const searchInput = document.querySelector('#search-input');
 const results = document.querySelector('#search-results');
-// 以小节为单位查找正文，同时避免大章重复命中相同的内容。
-const searchItems = [...document.querySelectorAll('h3[id], section.source-entry[id], div.source-entry[id]')].map(node => {
+const searchItems = [...document.querySelectorAll('h3[id], .source-entry[id]')].map(node => {
   const parts = [node.textContent];
   if (node.matches('h3')) {
     let sibling = node.nextElementSibling;
@@ -70,13 +90,22 @@ searchInput.addEventListener('input', () => {
   if (!query) return;
   const matches = searchItems.filter(item => item.text.includes(query));
   const status = document.createElement('p');
-  status.textContent = matches.length ? `找到 ${matches.length} 处${matches.length > 8 ? '，显示前 8 处' : ''}` : '未找到；可试试更短的词，如“证据”。';
+  status.textContent = matches.length ? `找到 ${matches.length} 处${matches.length > 8 ? '，显示前 8 处' : ''}` : '未找到；可试试“证据”“摘要”等词。';
   results.append(status);
   matches.slice(0, 8).forEach(item => {
     const link = document.createElement('a');
     link.href = `#${item.id}`;
     link.textContent = item.title;
-    link.addEventListener('click', closeMenu);
     results.append(link);
   });
 });
+
+// 同一锚点也可再次点击返回章首；浏览器前进/后退仍由 hash 保持。
+document.querySelectorAll('a[href^="#"]:not(.cite)').forEach(link => {
+  link.addEventListener('click', () => {
+    if (link.hash === location.hash) showRoute();
+  });
+});
+window.addEventListener('hashchange', showRoute);
+showRoute();
+document.body.classList.add('js-enabled');

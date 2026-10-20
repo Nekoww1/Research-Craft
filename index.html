@@ -11,25 +11,28 @@
 </head>
 <body>
   <a class="skip-link" href="#main">跳到正文</a>
-  <header class="mobile-bar"><a href="#orientation">Research Craft</a><button id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar" hidden>展开目录</button></header>
+  <header class="site-header">
+    <a class="header-brand" href="#orientation"><img src="assets/mark.svg" width="34" height="34" alt=""><strong>Research Craft</strong><span>科研方法与实践</span></a>
+    <div class="header-actions"><span class="draft-label">持续编写中</span><a href="#sources">来源与阅读记录</a><button id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar" hidden>展开目录</button></div>
+  </header>
   <aside class="sidebar" id="sidebar" aria-label="全书导航">
-    <a class="brand" href="#orientation" aria-label="Research Craft 首页"><img src="assets/mark.svg" width="34" height="34" alt=""><span>Research<br><strong>Craft</strong><small>研究的判断与实践</small></span></a>
-    <div class="edition">开放编写 · 首版 / 2026.10</div>
+    <div class="edition">阅读目录</div>
     <div class="search" id="search-box" hidden><label for="search-input">查找概念与方法</label><input id="search-input" type="search" placeholder="试试：选题、消融、摘要" autocomplete="off" aria-controls="search-results"><div id="search-results" aria-live="polite"></div></div>
-    <nav aria-label="章节目录"><p class="nav-label">阅读路线</p><a href="#orientation">导言 <span>从判断到行动</span></a><a href="#taste"><b>01</b> 选择值得投入的问题<small>案例 · 研究 taste</small></a><a href="#reading"><b>02</b> 让阅读改变问题<small>路径 · 领域视野</small></a><a href="#evidence"><b>03</b> 让证据回应主张<small>对照 · 验证与解释</small></a><a href="#writing"><b>04</b> 把研究写给读者<small>模板 · 修改与批注</small></a><p class="nav-label">查阅</p><a href="#sources">来源与阅读边界 <span>返回原文</span></a></nav>
+    <nav aria-label="章节目录"><p class="nav-label">阅读路线</p><a href="#orientation">总览 <span>内容与进度</span></a><a href="#taste"><b>01</b> 选题与研究 taste<small>从问题价值到投入判断</small></a><a href="#reading"><b>02</b> 阅读与领域视野<small>从论文到问题的关系</small></a><a href="#evidence"><b>03</b> 主张与验证<small>效果、解释与证据</small></a><a href="#writing"><b>04</b> 论文写作<small>结构、模板与修改</small></a><p class="nav-label">查阅</p><a href="#sources">来源与阅读边界 <span>返回原文</span></a></nav>
     <p class="sidebar-note">先理解一项判断如何形成，<br>再把它带回自己的研究。</p>
     <a class="repo-link" href="https://github.com/Nekoww1/Research-Craft">GitHub · 内容与修订 ↗</a>
   </aside>
   <main id="main">
     <section id="orientation" class="opening" aria-labelledby="opening-title">
-      <div class="page-meta"><span>一本持续生长的科研实践指南</span><a href="#sources">每个判断，回到它的依据 ↗</a></div>
+      <div class="page-meta"><span>科研实践指南 / 内容总览</span><a href="#sources">查看原始材料 ↗</a></div>
       <div class="hero">
-        <div><p class="eyebrow">RESEARCH CRAFT</p><h1 id="opening-title">研究，始于一个<br><em>有根据的判断。</em></h1><p class="hero-intro">问题为什么值得做？什么证据足以支持它？怎样让别人理解？沿着一项研究的形成过程，练习这些相互关联的能力。</p><a class="primary-link" href="#taste">从一个真实案例开始 <span>↓</span></a></div>
-        <figure class="research-map" aria-label="研究判断的往返关系：问题、阅读、主张、证据、表达"><div class="map-label">一项研究如何逐渐清楚</div><div class="map-node node-question"><span>01 / 判断</span><strong>值得研究的问题</strong><small>价值 · 可行性 · 时机</small></div><div class="map-pair"><div class="map-node"><span>02 / 理解</span><strong>已有工作</strong></div><div class="map-node"><span>03 / 验证</span><strong>主张与证据</strong></div></div><div class="map-node node-writing"><span>04 / 表达</span><strong>写给读者的解释</strong><small>让贡献可理解，也可质疑</small></div><figcaption>写作暴露证据的缺口，<br>阅读也会改变最初的问题。</figcaption></figure>
+        <div class="hero-copy"><p class="eyebrow">从理解方法，到独立判断</p><h1 id="opening-title">选好问题，做好研究，<br>把贡献写清楚。</h1><p class="hero-intro">从真实案例中理解取舍，用具体方法安排阅读、验证与写作。每个模块都保留依据，也说明适用边界。</p><div class="hero-actions"><a class="primary-link" href="#taste">阅读选题案例 <span>→</span></a><a class="text-link" href="#writing">查看写作模板 ↗</a></div></div>
+        <aside class="overview-status"><p class="status-kicker">现在写到哪里了</p><h2>四个基础模块已可阅读</h2><p>当前是教学首稿，仍在扩写。领域调研、建立视野、长期研究方向，尚未形成完整大章。</p><div class="status-divider"></div><p><strong>本轮采用</strong><br>Omar、彭思达、刘洋、Alon、陶哲轩、Simon Peyton Jones 等材料。</p><a href="#sources">查看具体文章与阅读范围 →</a></aside>
       </div>
-      <div class="introduction"><p>独立做研究，意味着逐渐能够说明自己为何选择、凭什么相信、下一步如何行动。做完一套教程有助于获得工具，参与项目有助于理解过程；当面对没有标准答案的选择时，还需要学习判断。彭思达的科研起步文章把基础学习、参与项目和在指导下承担项目分开讨论。<a class="cite" href="#S004">S004 · 起步三阶段</a></p><p>这部指南把方法论材料与实际论文放在一起阅读。你可以沿四章连续学习，也可以从当前需要进入。案例用于观察选择与取舍；模板用于检查信息是否完整。它们提供思考的支点，使用时仍需代入自己的学科、资源与阶段。</p></div>
-      <div class="route-grid"><a href="#taste"><span>01 / 案例</span><h2>选择值得投入的问题</h2><p>从 ColBERT 看见约束、替代路径与研究空间。</p><strong>进入案例 ↗</strong></a><a href="#reading"><span>02 / 路径</span><h2>让阅读改变问题</h2><p>从论文列表走向问题与技术的关系。</p><strong>安排阅读 ↗</strong></a><a href="#evidence"><span>03 / 对照</span><h2>让证据回应主张</h2><p>分开观察到的效果、解释和仍未知的部分。</p><strong>检查论证 ↗</strong></a><a href="#writing"><span>04 / 模板</span><h2>把研究写给读者</h2><p>用摘要结构、改写批注与运行例子讲清贡献。</p><strong>开始修改 ↗</strong></a></div>
-      <aside class="scope-note"><strong>如何阅读这份首版</strong><p>四章已提供正文与实践指导。它偏重计算机与 AI 研究情境，尚未覆盖合作、完整统计方法与长期研究管理。作者经验、编辑综合和教学示例会就近标明；没有收录用户的个人实验记录。</p></aside>
+      <div class="route-heading"><h2>从当前任务进入</h2><p>四个相互连接的基础模块，按需要阅读。</p></div>
+      <div class="route-grid"><a href="#taste"><span>01 · 研究 taste</span><h2>选择值得投入的问题</h2><p>从 ColBERT 看见约束、替代路径与研究空间。</p><strong>进入案例 ↗</strong></a><a href="#reading"><span>02 · 阅读与视野</span><h2>建立阅读与领域视野</h2><p>从论文列表走向问题与技术的关系。</p><strong>安排阅读 ↗</strong></a><a href="#evidence"><span>03 · 主张与验证</span><h2>让证据回应主张</h2><p>分开观察到的效果、解释和仍未知的部分。</p><strong>检查论证 ↗</strong></a><a href="#writing"><span>04 · 论文写作</span><h2>把研究写给读者</h2><p>用摘要结构、改写批注与运行例子讲清贡献。</p><strong>开始修改 ↗</strong></a></div>
+      <section class="progress-overview" aria-labelledby="progress-title"><div><p class="eyebrow">内容建设进度</p><h2 id="progress-title">大章节还在继续展开</h2><p>把已有材料变成完整教学，需要继续补充真实案例、方法细节与练习。</p></div><div class="progress-rows"><p><strong>选题、证据、写作</strong><span>已有基础稿与教学展示</span></p><p><strong>领域调研与建立视野</strong><span>已有阅读路径；系统方法与真实领域案例待补</span></p><p><strong>长期方向、合作、学术报告</strong><span>尚未形成独立章节</span></p></div></section>
+      <details class="editorial-note"><summary>这份指南怎样组织材料与教学</summary><div class="introduction"><p>独立做研究，意味着逐渐能够说明自己为何选择、凭什么相信、下一步如何行动。做完一套教程有助于获得工具，参与项目有助于理解过程；当面对没有标准答案的选择时，还需要学习判断。彭思达的科研起步文章把基础学习、参与项目和在指导下承担项目分开讨论。<a class="cite" href="#S004">S004 · 起步三阶段</a></p><p>这部指南把方法论材料与实际论文放在一起阅读。你可以沿四章连续学习，也可以从当前需要进入。案例用于观察选择与取舍；模板用于检查信息是否完整。它们提供思考的支点，使用时仍需代入自己的学科、资源与阶段。</p></div><p>作者经验、编辑综合和教学示例分别标明；当前偏重计算机与 AI 研究，没有收录用户的个人实验记录。</p></details>
     </section>
 
     <article id="taste" class="chapter" aria-labelledby="taste-title">
@@ -37,7 +40,7 @@
       <div class="prose"><h3 id="taste-definition">研究 taste 是怎样一种判断</h3><p>这里把研究 taste 理解为：在答案还不清楚时，辨认哪些问题可能带来有价值的知识，以及自己为何适合推进它。这是本指南的工作定义。选题不能只问“有没有人做过”，还要说明现有办法在哪个条件下受到限制，解除限制之后，谁能做成什么事，或我们能多理解什么。</p><p>“有技术难度”“容易出结果”“大家都在做”描述了不同属性，单独一个都不足以决定投入。一个训练任务可能非常适合初学者，却还没有形成独立研究问题；一个重要问题也可能因缺少关键数据或工具，暂时无法成为近期项目。把这两层判断分开，才能明确下一步是补能力、验证假设，还是正式投入。</p></div>
 
       <section id="colbert" class="case-study" aria-labelledby="colbert-title"><div class="case-heading"><span class="tag">原始研究 + 作者回顾</span><span>SIGIR 2020 / 信息检索</span></div><h3 id="colbert-title">ColBERT：改变计算发生的位置</h3><p class="case-lead">任务是为查询找到相关文本。质量与查询时的计算成本形成约束：每一对查询和文档都做昂贵的联合计算，会让检索难以扩展。</p><p>2020 年论文将问题表述为质量与成本的取舍。其 late interaction 架构分别编码查询和文档，文档表示可提前计算，再以较轻的细粒度匹配完成交互。它保留多向量表示，也引入索引空间成本。<a class="cite" href="#S020">S020 · §1、§3.1、§4.5</a></p>
-      <div class="tradeoff" role="group" aria-label="三种检索架构的定性对照"><div><span>联合计算</span><strong>查询与文档一起编码</strong><p>交互充分；每对候选都需要较重计算。</p></div><div><span>压缩表示</span><strong>各自压成单个向量</strong><p>便于预计算；细粒度信息受到压缩。</p></div><div class="selected"><span>ColBERT 的选择</span><strong>分别编码，延后交互</strong><p>保留细粒度匹配；仍需承担存储与匹配开销。</p></div></div><p class="caption">编辑绘制的概念对照，依据论文 §1 / Fig.2、§3.1；不是性能测量图，也不表示所有单向量方法都会失败。</p>
+      <div class="tradeoff" role="group" aria-label="三种检索架构的定性对照"><div><span>联合计算</span><strong>查询与文档一起编码</strong><div class="architecture" aria-label="查询和文档一起进入 BERT 后计算相关度"><span>查询 + 文档</span><b>→</b><span>BERT</span></div><p>交互充分；每对候选都需要较重计算。</p></div><div><span>压缩表示</span><strong>各自压成单个向量</strong><div class="architecture" aria-label="各自编码为一个向量后比较"><span>单向量</span><b>↔</b><span>单向量</span></div><p>便于预计算；细粒度信息受到压缩。</p></div><div class="selected"><span>ColBERT 的选择</span><strong>分别编码，延后交互</strong><div class="architecture" aria-label="两组词元向量在编码后交互"><span>词元向量组</span><b>↔</b><span>词元向量组</span></div><p>保留细粒度匹配；仍需承担存储与匹配开销。</p></div></div><p class="caption">编辑绘制的概念对照，依据论文 §1 / Fig.2、§3.1；不是性能测量图，也不表示所有单向量方法都会失败。</p>
       <details class="case-reflection"><summary>先判断，再展开：你会用什么证据检验这项选择？</summary><div><p>这是正文完成后加入的编辑思考题。可以先考虑：如果代价降低了，检索质量是否保住？如果匹配更细，额外存储是否可承受？“模型跑得更快”并不能同时回答这两件事。</p><p>原论文 §4.4 用简化训练的消融比较部分设计，§4.5 展示空间与效果的取舍。它们为具体实验设置下的主张提供材料；跨模型、硬件和候选集的比较仍需回到设置。本指南没有复现这些实验。<a class="cite" href="#S020">S020 · §4.4–4.5</a></p></div></details>
       <div class="case-readings"><div><h4>作者后来如何解释选题</h4><p>Omar 在 2024 年回顾中用时机、改进空间和下游影响范围解释 ColBERT，并建议思考常见路线接下来会遇到什么限制。文章的范围是通过开源工作产生 AI 研究影响。<a class="cite" href="#S003">S003 · §2–3</a></p></div><div><h4>从这份材料能够学到什么</h4><p>论文可核实技术选择与报告的证据；回顾可核实作者后来如何叙述选择。二者不能恢复研究当时全部信息，也不能证明用这套选题方式必然成功。我们练习的是提出可检查的判断理由。</p></div></div></section>
 
@@ -50,7 +53,7 @@
       <div class="prose"><h3 id="reading-purpose">先决定这次阅读要支持什么判断</h3><p>查一个定义、比较基线、寻找未解决问题和复现方法，需要的阅读深度不同。开始前先写出你现在不确定的事情。例如“这个限制是否已有人处理过”，就比“了解一下这个领域”更容易导向具体阅读。目标可以随着材料改变，但要知道自己为何继续投入。</p><p>Keshav 的三遍阅读法依次建立概览、把握内容、深入重构。它允许读者在获得足够信息后停下，也允许因缺少背景暂时返回学习。第三遍的头脑重构，不等同于实际运行代码或独立复现。<a class="cite" href="#S013">S013 · §2.1–2.3</a></p></div>
       <div class="reading-path"><div><span>先定位</span><h3>它与我有什么关系</h3><p>看问题、摘要、结构与结论，找到对应任务。不能判断相关性时，记下缺少的背景。</p><small>产出：继续读的理由，或暂缓的理由。</small></div><div><span>再理解</span><h3>主张靠什么成立</h3><p>连接方法、图表、假设与结论。查看基线、适用输入与失败情形。</p><small>产出：一段带证据定位的解释。</small></div><div><span>按需深入</span><h3>我能否重构关键步骤</h3><p>推演算法或论证，再与原文比较；需要实际复现时，另行安排环境与实验。</p><small>产出：关键假设、可复用步骤与剩余疑问。</small></div></div>
       <div class="prose"><h3 id="field-map">把论文放进问题与技术的关系中</h3><p>一张按年份排列的论文列表还不能说明领域发生了什么。彭思达的选题课件将技术的演变与重要问题的演变并列讨论：了解某项方法，也要了解它回应了什么问题。<a class="cite" href="#S015">S015 · 文件 pp.4–16</a></p><p>整理时，为每篇关键论文补上任务设置、原有障碍、技术改变、支持证据与剩余边界。再检查相邻论文之间的连线究竟表示继承方法、改变任务、挑战假设，还是只共享关键词。连线有具体含义，关系图才能帮助选择下一篇文献。</p></div>
-      <figure class="literature-example"><figcaption><span class="tag">教学示例</span> 一个假设领域的关系图 · 不对应真实论文史</figcaption><div class="literature-row"><strong>工作 A</strong><span>固定输入下建立基线</span><span class="relation">↓ 暴露数据缺失的限制</span><strong>工作 B</strong><span>研究缺失输入时的稳健性</span><span class="relation">↓ 发现部署成本过高</span><strong>工作 C</strong><span>在相同输入条件下减少成本</span></div><p>如果你的问题关心成本，就回到 B 和 C 的设置比较；如果关心缺失输入，C 的加速结果未必回答它。这里的关系需要原文证据支持，不能由引用箭头自动推断。</p></figure>
+      <figure class="literature-example"><figcaption><span class="tag">教学示例</span> 一个假设领域的关系图 · 不对应真实论文史</figcaption><div class="literature-flow"><div><h4>工作 A</h4><p>固定输入下建立基线</p><span>暴露数据缺失的限制 →</span></div><div><h4>工作 B</h4><p>研究缺失输入时的稳健性</p><span>发现部署成本过高 →</span></div><div><h4>工作 C</h4><p>在相同输入条件下减少成本</p><span>继续追问尚未解决的约束</span></div></div><p>如果你的问题关心成本，就回到 B 和 C 的设置比较；如果关心缺失输入，C 的加速结果未必回答它。这里的关系需要原文证据支持，不能由引用箭头自动推断。</p></figure>
       <div class="prose"><h3 id="reading-action">用一份短记录结束一次阅读</h3><p>不要只保存“方法很有启发”。写出作者主张与原文位置，说明它如何影响当前判断，再单列你自己的推断。例如：“作者在设置 X 下比较 Y；这使我需要补查 Z。关于其他输入的适用性，本文尚未验证。”这样留下的是下一步入口，也能防止日后把自己的推断记成作者结论。</p><p>当要判断一个缺口是否存在时，沿代表性论文向前查基础工作、向后查跟进工作，再比较近期同任务材料。综述和引用量可以帮助发现线索，不能单独证明某个问题从未有人处理。停止本轮检索时，记录搜过什么与仍未覆盖什么；“本轮没有找到”应保留为有范围的观察。</p><div class="action"><span>带回自己的研究 · 编辑练习</span><h4>让下一篇阅读有一个明确去向</h4><p>选择三篇与你问题直接相关的论文。每篇用两三句话说明“问题—技术改变—证据”，再标出一条有原文依据的关系。最后改写你的选题说明：哪句话被支持，哪句话需要收窄，下一篇要补什么。三篇只是本练习的起点，不代表调研已充分。</p></div></div>
       <a class="next-chapter" href="#evidence"><span>接下来 · 把已有理解变成可检验主张</span><strong>03 让证据回应主张 →</strong></a>
     </article>
@@ -80,6 +83,8 @@
 
     <section id="sources" class="chapter sources" aria-labelledby="sources-title"><header class="chapter-header"><p class="eyebrow">查阅 / 来源与阅读边界</p><h2 id="sources-title">回到原文，再作判断</h2><p class="chapter-deck">看到链接、读取文字、读完材料、复现实验，是不同的事情。</p></header><p>以下列出正文实际使用的材料。阅读范围截至 2026-10-20，由编辑记录；未保存或公开转载第三方全文。原有 19 条线索的完整访问记录见仓库 <a href="docs/SOURCES.md">来源目录</a>，详细分析见 <a href="docs/READING_NOTES.md">阅读记录</a>，观点的综合关系见 <a href="docs/CONCEPTS.md">概念整理</a>。</p>
       <div class="source-legend"><span>作者观点：保留作者与条件</span><span>编辑综合：本指南的组织与解释</span><span>教学示例：自编，不是真实结果</span></div>
+      <aside class="source-inventory"><strong>哪些材料还没有进入正文？</strong><p>Hamming《You and Your Research》、Feynman《Cargo Cult Science》、Nielsen《Principles of Effective Research》和 Karpathy《A Recipe for Training Neural Networks》已列入来源目录，但尚未综合进本版教学。目录收录不等于完成阅读或教学编写。</p></aside>
+      <div class="source-grid">
       <div class="source-entry" id="S002"><span>S002</span><div><h3><a href="https://air.tsinghua.edu.cn/info/1007/1359.htm">刘洋：如何撰写高质量科技论文 ↗</a></h3><p>清华 AIR 官方图文整理 · 2021。读取整理文字全文，未逐一辨读图中文字或观看视频。不是完整课件。</p><small>正文定位：摘要、引言、方法、报告开头与结尾。</small></div></div>
       <div class="source-entry" id="S003"><span>S003</span><div><h3><a href="https://github.com/okhat/blog/blob/main/2024.09.impact.md">Omar Khattab · On Impactful AI Research ↗</a></h3><p>作者仓库文章 · 2024-09-04。正文六节已读，未核实全部外链。适用范围为经由开源工作产生 AI 研究影响。</p><small>正文定位：§1 项目、§2 选题、§3 反馈与前瞻；ColBERT 为作者回顾。</small></div></div>
       <div class="source-entry" id="S004"><span>S004</span><div><h3><a href="https://github.com/pengsida/learning_research">彭思达 · Learning Research ↗</a></h3><p>README、<a href="https://github.com/pengsida/learning_research/blob/master/getting_started_in_research.md">科研起步</a>、<a href="https://github.com/pengsida/learning_research/blob/master/getting_advanced_in_research.md">科研能力</a>文字全文已读。外链不算已读，需保留实验室背景。</p><small>正文定位：科研起步文章的三个阶段。</small></div></div>
@@ -92,9 +97,13 @@
       <div class="source-entry" id="S015"><span>S015</span><div><h3><a href="https://pengsida.net/files/research_topic_selection.pdf">彭思达 · 领域视野与选题专题课件 ↗</a></h3><p>作者网站，README 关联的版本。55 页；本轮读取文件 pp.1–34 文字，未逐一读取图内信息。</p><small>正文定位：pp.4–16 领域视野，pp.19–34 选题。封面为“学术论文的科研流程概述”。</small></div></div>
       <div class="source-entry" id="S020"><span>S020</span><div><h3><a href="https://arxiv.org/html/2004.12832v2">Khattab &amp; Zaharia · ColBERT ↗</a></h3><p>SIGIR 2020 原论文 · arXiv v2。局部阅读摘要、§1、§3.1、§3.4、§4.4–4.5、§5。未独立复现实验。</p><small>正文定位：Fig.2 的架构对照，§3.1，§4.4 消融与 §4.5 空间成本。</small></div></div>
       <div class="source-entry" id="S021"><span>S021</span><div><h3><a href="https://aclanthology.org/P08-1067/">Liang Huang · Forest Reranking ↗</a></h3><p>ACL 2008 原论文。核对记录与原 PDF 摘要、§1 及 p.2 开头；未阅读全文。</p><small>正文定位：PDF p.1 / 会议页码 p.586 的 Abstract。由 S002 参考文献 [1] 追溯。</small></div></div>
+      </div>
       <aside class="scope-note"><strong>仍然开放的来源缺口</strong><p>彭思达 Research Project 主页面已通过浏览器补读，其子教程仍有阅读缺口。S001 原课件受抓取大小限制，S018 汇编未取得正文；S019 第三方 PDF 的编者与版本关系未核实。后三者没有被当作正文观点的依据。</p></aside>
     </section>
     <footer><a href="#orientation">Research Craft ↑</a><p>判断有依据，行动有边界。<br><span>开放编写 · 2026-10-20 · 首版</span></p><a href="https://github.com/Nekoww1/Research-Craft">查看仓库与后续修订 ↗</a></footer>
   </main>
+  <aside class="page-outline" id="page-outline" aria-label="本章内容" hidden><p>本章内容</p><nav id="outline-links"></nav><a class="outline-sources" href="#sources">查阅来源 ↗</a></aside>
+  <dialog id="source-dialog" aria-label="原始来源与阅读范围"><div class="dialog-header"><span>原始来源与阅读范围</span><form method="dialog"><button type="submit" aria-label="关闭来源">关闭 ×</button></form></div><div id="source-content"></div><a class="all-sources-link" href="#sources">查看全部来源与阅读记录 →</a></dialog>
+
 </body>
 </html>
