@@ -73,8 +73,9 @@ const searchBox = document.querySelector('#search-box');
 const searchInput = document.querySelector('#search-input');
 const results = document.querySelector('#search-results');
 const searchItems = [...document.querySelectorAll('h3[id], .source-entry[id]')].map(node => {
-  const parts = [node.textContent];
-  if (node.matches('h3')) {
+  const section = node.closest('.writing-part');
+  const parts = [section ? section.textContent : node.textContent];
+  if (node.matches('h3') && !section) {
     let sibling = node.nextElementSibling;
     while (sibling && sibling.tagName !== 'H3') {
       parts.push(sibling.textContent);

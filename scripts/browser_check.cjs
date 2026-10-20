@@ -83,6 +83,23 @@ const fs = require('node:fs');
     await page.locator('.case-reflection summary').click();
     assert.equal(await page.locator('.case-reflection').getAttribute('open'), '');
     await route('writing');
+    await page.screenshot({ path: path.join(output, 'writing-chapter-1920.png') });
+    assert.equal(await page.locator('.paper-map a').count(), 8);
+    for (const id of ['paper-title', 'abstract', 'introduction-logic', 'running-example', 'experiments', 'related-work', 'discussion', 'conclusion']) {
+      await page.locator('.paper-map a[href="#' + id + '"]').click();
+      await page.waitForFunction(value => location.hash === '#' + value, id);
+      assert.equal(await page.locator('#' + id).isVisible(), true);
+      assert.equal(await page.locator('main > article:visible').count(), 1);
+    }
+    await page.locator('#search-input').fill('候选空间');
+    assert.ok(await page.locator('#search-results a[href="#abstract"]').count() > 0, '摘要正文未被搜索索引');
+    await page.locator('#search-results a[href="#abstract"]').click();
+    await page.waitForFunction(() => location.hash === '#abstract');
+    await page.locator('#search-input').fill('');
+    await page.locator('#paper-map').evaluate(n => n.scrollIntoView({ block: 'start' }));
+    await page.screenshot({ path: path.join(output, 'writing-structure-1920.png') });
+    await page.locator('#abstract-analysis').evaluate(n => n.scrollIntoView({ block: 'start' }));
+    await page.screenshot({ path: path.join(output, 'writing-annotation-1920.png') });
     await page.locator('#annotation-toggle').click();
     assert.equal(await page.locator('.annotations:visible').count(), 0);
     await page.locator('#annotation-toggle').click();
