@@ -1,5 +1,29 @@
 # 网站验证记录
 
+## 2026-10-21 写作区密度与视觉交互
+
+目标：确认排版确实收紧，功能色对应正确的句子／旁批，聚合切换计算正确，并保持独立页原有阅读能力。正文基线实测 20px、39px 行高、22px 段距；新增检查先以“应为 18px”失败，再实施修改。
+
+本轮验证：
+
+```powershell
+python -X utf8 scripts/build_writing.py --check
+python -X utf8 scripts/verify_site.py
+node --check assets/lesson.js
+node --check scripts/writing_design_check.cjs
+$env:NODE_PATH='C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules'
+node scripts/writing_design_check.cjs
+node scripts/writing_check.cjs
+node scripts/browser_check.cjs
+git diff --check
+```
+
+结果：18px、32.4px 行高、16px 段距；11 页覆盖三种桌面横屏和 768／390 窄屏。摘要标注与旁批横向对应，选择、恢复与 Enter／Space 可用；人工矩阵逐行最大 1.7、全局最大 0.9、求和 2.4，高亮分别为 2／1／6 个格子。SVG 示例可通过图形名称识别，无脚本时默认解释与算例仍完整。原有搜索、返回、来源、旧链接、直接文件阅读通过；无页面脚本错误。
+
+静态结果：12 个 HTML，266 个页内唯一锚点、601 个链接、84 处引用，UTF-8 无 BOM；生成源与交付页同步。真实论文的来源不变，新图复用明确虚构的教学设定，不是新增实验结果。
+
+人工复查了摘要批注、改稿对照、聚合演示、图与图注、证据分层和首屏密度。截图 `.local/writing-studio-*.png`、`writing-score-demo-1366.png`、`writing-chart-caption-1366.png`、`writing-revision-desk.png`、`writing-density-after.png`。当前中文主正文仍为微软雅黑；彩色标签使用较深文字，避免浅色底上的亮色字。未开展真实读者效果试验。
+
 ## 2026-10-20 写作模块独立页扩写
 
 要发现的失败：跨页锚点和旧链接失效、正文与生成页面不同步、搜索漏正文、来源离开当前阅读，以及横屏中表格和批注挤压。失败则先修对应路径或布局，不用页面数代替教学判断。

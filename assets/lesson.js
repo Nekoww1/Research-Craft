@@ -50,3 +50,58 @@ document.querySelectorAll('.lesson-local-toc a').forEach(link => {
   });
 });
 document.body.classList.add('js-enabled');
+
+// 同一功能色连接摘要句子与旁批；默认保留全部批注。
+document.querySelectorAll('[data-annotation-studio]').forEach(studio => {
+  const fragments = [...studio.querySelectorAll('[data-focus-role]')];
+  const notes = [...studio.querySelectorAll('[data-note-role]')];
+  const reset = studio.querySelector('[data-reset-annotations]');
+  const focus = role => {
+    studio.dataset.focus = role || 'all';
+    fragments.forEach(fragment => fragment.setAttribute('aria-pressed', String(fragment.dataset.focusRole === role)));
+    notes.forEach(note => { note.hidden = Boolean(role) && note.dataset.noteRole !== role; });
+  };
+  fragments.forEach(fragment => {
+    fragment.setAttribute('role', 'button');
+    fragment.setAttribute('tabindex', '0');
+    fragment.setAttribute('aria-pressed', 'false');
+    const activate = () => focus(fragment.getAttribute('aria-pressed') === 'true' ? null : fragment.dataset.focusRole);
+    fragment.addEventListener('click', activate);
+    fragment.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        activate();
+      }
+    });
+  });
+  reset.hidden = false;
+  reset.addEventListener('click', () => focus(null));
+});
+
+// 人工矩阵的三种聚合，始终保留右列的逐行最大值用于对读。
+document.querySelectorAll('[data-score-demo]').forEach(demo => {
+  const cells = [...demo.querySelectorAll('[data-score-value]')];
+  const rows = [...demo.querySelectorAll('tbody tr')].map(row => [...row.querySelectorAll('[data-score-value]')]);
+  const maximum = group => group.reduce((best, cell) => Number(cell.dataset.scoreValue) > Number(best.dataset.scoreValue) ? cell : best);
+  const update = mode => {
+    const selected = mode === 'sum' ? cells : mode === 'global-max' ? [maximum(cells)] : rows.map(maximum);
+    cells.forEach(cell => {
+      cell.classList.remove('chosen');
+      cell.classList.toggle('is-selected', selected.includes(cell));
+    });
+    const values = selected.map(cell => Number(cell.dataset.scoreValue));
+    const score = values.reduce((sum, value) => sum + value, 0).toFixed(1);
+    const descriptions = {
+      'row-max': ['逐行取最大，再相加', '每个查询位置保留一个最强匹配，再累加两个位置的得分。'],
+      'global-max': ['只保留一个最强匹配', '整个查询只留下一个最强匹配，另一个查询位置不再贡献得分。'],
+      sum: ['所有相似度一起相加', '每个弱匹配也参与累加，保留的信息与 MaxSim 不同。']
+    };
+    demo.querySelector('[data-score-output]').textContent = score;
+    demo.querySelector('[data-score-label]').textContent = descriptions[mode][0];
+    demo.querySelector('[data-score-calculation]').textContent = values.map(value => value.toFixed(1)).join(' + ') + ' = ' + score;
+    demo.querySelector('[data-score-explanation]').textContent = descriptions[mode][1];
+  };
+  demo.querySelector('.score-modes').hidden = false;
+  demo.querySelectorAll('input[name="aggregation"]').forEach(input => input.addEventListener('change', () => update(input.value)));
+  update('row-max');
+});

@@ -76,7 +76,7 @@ def generate():
         html = f'''<!doctype html>
 <html lang="zh-CN">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="{escape(page['summary'], quote=True)}"><title>{escape(page['label'])} · 论文写作 · Research Craft</title><link rel="icon" href="../assets/mark.svg" type="image/svg+xml"><link rel="stylesheet" href="../assets/style.css"><link rel="stylesheet" href="../assets/writing.css"><script src="../assets/writing-search.js" defer></script><script src="../assets/lesson.js" defer></script></head>
-<body class="lesson-page" data-view="writing">
+<body class="lesson-page" data-view="writing" data-lesson="{slug}">
 <a class="skip-link" href="#main">跳到正文</a>
 <header class="site-header"><a class="header-brand" href="../index.html#orientation"><img src="../assets/mark.svg" width="34" height="34" alt=""><strong>Research Craft</strong><span>科研方法与实践</span></a><div class="header-actions"><a href="../index.html#writing">写作总览</a><a href="../index.html#sources">来源与阅读记录</a><button id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar" hidden>展开目录</button></div></header>
 <aside class="sidebar lesson-sidebar" id="sidebar" aria-label="写作模块导航"><a class="back-book" href="../index.html#writing">← 写作模块总览</a><div class="search" id="search-box" hidden><label for="search-input">在写作模块中查找</label><input id="search-input" type="search" placeholder="试试：摘要、比较、动词" autocomplete="off" aria-controls="search-results"><div id="search-results" aria-live="polite"></div></div><nav aria-label="写作页面"><p class="nav-label">论文写作 / 11 个独立页面</p>{nav}</nav><a class="repo-link" href="https://github.com/Nekoww1/Research-Craft">GitHub · 内容与修订 ↗</a></aside>

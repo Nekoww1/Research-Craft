@@ -35,7 +35,7 @@ const fs = require('node:fs');
         assert.equal(await page.locator('.lesson-sidebar nav a[aria-current="page"]').getAttribute('href'), item.slug + '.html');
         assert.equal(await page.locator('.lesson-sidebar nav a').count(), pages.length);
         const size = await page.locator('.lesson-section > p').first().evaluate(n => parseFloat(getComputedStyle(n).fontSize));
-        assert.ok(size >= 20, '正文过小: ' + item.slug + ', ' + width);
+        assert.equal(size, 18, '写作正文应为 18px: ' + item.slug + ', ' + width);
         await overflow(width + ' ' + item.slug);
         if (item.slug === 'method') {
           const widths = await page.locator('.similarity-table thead th').evaluateAll(nodes => nodes.map(n => n.getBoundingClientRect().width));
@@ -43,7 +43,7 @@ const fs = require('node:fs');
         }
         if (item.slug === 'abstract' && width === 1920) {
           await page.locator('#abstract-analysis').evaluate(n => n.scrollIntoView());
-          await parallel('.annotation-row:first-of-type > div, .annotation-row:first-of-type > aside');
+          await parallel('.abstract-paper, .annotation-notes');
           await page.screenshot({ path: path.join(output, 'abstract-analysis-1920.png') });
         }
         if (item.slug === 'abstract' && width === 1366) {
@@ -118,6 +118,6 @@ const fs = require('node:fs');
     await context.close();
     assert.deepEqual(errors, [], '脚本异常');
     assert.deepEqual(failures, [], '资源请求失败');
-    console.log('PASS: 11 页 × 三种桌面横屏，20px 正文、横向批注、跨页导航／返回／搜索、旧链接、来源弹层、算例展开、768／390 窄屏、file:// 和无脚本阅读。');
+    console.log('PASS: 11 页 × 三种桌面横屏，18px 正文、横向批注、跨页导航／返回／搜索、旧链接、来源弹层、算例展开、768／390 窄屏、file:// 和无脚本阅读。');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });
