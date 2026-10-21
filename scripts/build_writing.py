@@ -54,6 +54,10 @@ def generate():
         body = (CONTENT / f'{slug}.html').read_text(encoding='utf-8')
         parser = SearchSections()
         parser.feed(body)
+        core_match = re.match(r'(<section class="lesson-core"[^>]*>.*?</section>)\s*', body, re.S)
+        assert core_match, f'{slug}: 正文开头缺少本节核心'
+        core = core_match.group(1)
+        lesson_body = body[core_match.end():]
         sources = list(dict.fromkeys(re.findall(r'class="cite" href="../index.html#(S\d{3})"', body)))
         for source in sources:
             assert source in registry, f'index.html 缺少来源: {source}'
@@ -80,14 +84,14 @@ def generate():
 <a class="skip-link" href="#main">跳到正文</a>
 <header class="site-header"><a class="header-brand" href="../index.html#orientation"><img src="../assets/mark.svg" width="34" height="34" alt=""><strong>Research Craft</strong><span>科研方法与实践</span></a><div class="header-actions"><a href="../index.html#writing">写作总览</a><a href="../index.html#sources">来源与阅读记录</a><button id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar" hidden>展开目录</button></div></header>
 <aside class="sidebar lesson-sidebar" id="sidebar" aria-label="写作模块导航"><a class="back-book" href="../index.html#writing">← 写作模块总览</a><div class="search" id="search-box" hidden><label for="search-input">在写作模块中查找</label><input id="search-input" type="search" placeholder="试试：摘要、比较、动词" autocomplete="off" aria-controls="search-results"><div id="search-results" aria-live="polite"></div></div><nav aria-label="写作页面"><p class="nav-label">论文写作 / 11 个独立页面</p>{nav}</nav><a class="repo-link" href="https://github.com/Nekoww1/Research-Craft">GitHub · 内容与修订 ↗</a></aside>
-<main id="main"><article class="lesson"><header class="lesson-header"><p class="eyebrow">论文写作 / {number:02d} / {escape(page['english'])}</p><h1>{escape(page['title'])}</h1><p class="lesson-deck">{escape(page['deck'])}</p><div class="lesson-orientation"><span>本页重点</span><p>{escape(page['summary'])}</p></div></header><nav class="lesson-local-toc" aria-label="本页内容">{toc}</nav><div class="lesson-body">{body}</div><details class="lesson-sources"><summary>本页依据与阅读范围</summary><p>观点和案例的具体页码见正文中的引用。教学示例与编辑方法均有标注；例子中的假设数据不能作为真实研究结果。</p>{source_html}</details><nav class="lesson-pagination" aria-label="前后页面">{''.join(neighbours)}</nav></article><footer><span>Research Craft · 持续修订的教学正文</span><a href="../index.html#writing">写作总览 ↑</a></footer></main>
+<main id="main"><article class="lesson"><header class="lesson-header"><p class="eyebrow">论文写作 / {number:02d} / {escape(page['english'])}</p><h1>{escape(page['title'])}</h1><p class="lesson-deck">{escape(page['deck'])}</p></header>{core}<nav class="lesson-local-toc" aria-label="本页内容">{toc}</nav><div class="lesson-body">{lesson_body}</div><details class="lesson-sources"><summary>本页依据与阅读范围</summary><p>观点和案例的具体页码见正文中的引用。教学示例与编辑方法均有标注；例子中的假设数据不能作为真实研究结果。</p>{source_html}</details><nav class="lesson-pagination" aria-label="前后页面">{''.join(neighbours)}</nav></article><footer><span>Research Craft · 持续修订的教学正文</span><a href="../index.html#writing">写作总览 ↑</a></footer></main>
 <aside class="page-outline" aria-label="本页内容"><p>本页内容</p><nav>{toc}</nav><a class="outline-sources" href="../index.html#sources">查阅原始材料 ↗</a></aside><dialog id="source-dialog" aria-label="原始来源与阅读范围"><div class="dialog-header"><span>原始来源与阅读范围</span><form method="dialog"><button type="submit" aria-label="关闭来源">关闭 ×</button></form></div><div id="source-content"></div><a class="all-sources-link" href="../index.html#sources">全部来源与阅读记录 →</a></dialog>
 </body></html>
 '''
         write(ROOT / 'writing' / f'{slug}.html', html)
     write(ROOT / 'assets/writing-search.js', '// 由 scripts/build_writing.py 生成；正文维护在 content/writing/。\nwindow.writingSearch = ' + json.dumps(search, ensure_ascii=False, separators=(',', ':')) + ';\n')
     action = '校验' if '--check' in sys.argv else '生成'
-    print(f'{action} {len(PAGES)} 个写作页面、{len(search)} 个可搜索的教学小节。')
+    print(f'{action} {len(PAGES)} 个写作页面、{len(search)} 个可搜索条目（含各页核心）。')
 
 
 if __name__ == '__main__':

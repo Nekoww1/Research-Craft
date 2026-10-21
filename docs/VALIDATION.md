@@ -1,5 +1,29 @@
 # 网站验证记录
 
+## 2026-10-21 各页学习核心与迁移路径
+
+要发现的失败：有的独立页缺少学习核心，核心要领不能进入实际讲解，跨页职责连接或来源失效，新增核心未进入搜索，以及页首模块挤压或遮挡原有正文。最窄检查先在原站以“写作页缺少明确的本节核心入口，0 !== 1”失败，再实施内容与布局。
+
+实际执行并通过：
+
+```powershell
+python -X utf8 scripts/build_writing.py --check
+python -X utf8 scripts/verify_site.py
+node --check scripts/writing_design_check.cjs
+$env:NODE_PATH='C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules'
+node scripts/writing_design_check.cjs
+node scripts/writing_check.cjs
+node scripts/browser_check.cjs
+git -c core.autocrlf=false diff --check
+```
+
+- 11 个核心、33 项要领、当场产出、掌握判断、提炼来源与跨页连接均存在；核心在小节目录前，展开正文仍完整。核心链接的目标唯一且存在。
+- 实际操作验证从方法要领到基线、从产出到练习、从方法到实验与结果；结果要领能直接到写作骨架。搜索“让改变可见”能进入方法核心，核心引用可以打开来源并用 Escape 关闭。
+- 方法与实验核心在 1920×1080、1536×864、1366×768 并排展示判断与要领；既有 56 处模块标题、摘要批注、改稿、三种聚合计算和图表通过。11 页三种桌面、768／390、直接文件与无脚本回归通过，无页面错误。
+- 静态为 12 个 HTML、278 个页内唯一锚点、711 个链接、106 处引用；正文源、生成页与索引同步，UTF-8 无 BOM。81 个展开小节与 11 个核心形成 92 个搜索条目。正文源去标签后约 31,441 个汉字，文档记作约 3.1 万。
+- 人工审阅方法核心、实验与结果核心、完整结果段骨架；截图 `.local/writing-core-method-*.png`、`writing-core-experiments-*.png`、`writing-result-pattern-1366.png`。共同结构可以验证，核心是否足够可迁移仍待实际审阅；未进行读者效果实验。
+- `.local/` 约 36.2 MiB，新增桌面截图与一次性内容编排脚本，其余为此前资料与检查文件；被忽略，不提交，不自动删除。无工作区外自建中转目录。新增核心为编辑归纳，虚构结果例沿用既有设定，来源阅读状态未升级。
+
 ## 2026-10-21 模块层级与内部设计
 
 要发现的失败：模块标题弱于正文、同类模块遗漏修正、桌面改稿退回纵向排列、两侧修改理由错位，以及视觉改动使来源、搜索或练习不可用。失败则修正具体模块，不用统一换色或继续放大正文代替。
