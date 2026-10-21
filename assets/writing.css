@@ -39,7 +39,9 @@
 .ai-guide-entry > div:last-child { align-self: center; }
 .ai-guide-entry .ai-guide-main { font-size: 18px; font-weight: 600; }
 .ai-guide-entry nav { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 13px; font-size: 15px; }
-.knowledge-links { display: flex; flex-wrap: wrap; gap: 5px 20px; margin: -7px 0 17px; font-size: 14px; }
+.knowledge-links { margin: -7px 0 17px; font-size: 14px; color: var(--muted); }
+.knowledge-links summary { cursor: pointer; }
+.knowledge-links nav { display: flex; flex-wrap: wrap; gap: 5px 20px; padding-top: 9px; }
 @media (max-width: 800px) { .ai-guide-entry { grid-template-columns: 1fr; gap: 16px; } }
 .lesson-section { margin: 38px 0 46px; }
 .lesson-section > h2 { font-size: 25px; margin-bottom: 18px; scroll-margin-top: 16px; letter-spacing: -.3px; }

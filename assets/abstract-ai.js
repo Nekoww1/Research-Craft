@@ -39,7 +39,11 @@
   });
   const reveal = () => {
     const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
-    if (target?.tagName === 'DETAILS') target.open = true;
+    if (!target) return;
+    for (let node = target; node; node = node.parentElement) {
+      if (node.tagName === 'DETAILS') node.open = true;
+    }
+    target.scrollIntoView({ block: 'start' });
   };
   window.addEventListener('hashchange', reveal);
   reveal();

@@ -4,7 +4,9 @@
 
 ## 怎样使用
 
-从[本地规范页](http://127.0.0.1:4173/ai/abstract/index.html)选择起草、修改或审查，下载／复制对应 Markdown，另附填写后的[研究材料模板](../ai/abstract/input.example.json)。普通对话模型可直接读取这些文件；有仓库访问权限的 agent 可以从 [AI 入口](../ai/abstract/README.md)按任务读取，不必加载整个网站。
+用户反馈规范页过于结构化、难以理解后，当前[阅读页](http://127.0.0.1:4173/ai/abstract/index.html)默认从改稿与解释开始，不显示概念／案例编号；操作字段放进“给AI用”。源编号留在数据和链接中，来源说明仍在相关内容旁边。已审计的开头对照直接从教学源提取，避免手工维护两份例文。
+
+需要AI协助时，展开“给AI用”或从页首链接进入，再选择起草、修改或审查，下载／复制对应 Markdown，另附填写后的[研究材料模板](../ai/abstract/input.example.json)。普通对话模型可直接读取这些文件；有仓库访问权限的 agent 可以从 [AI 入口](../ai/abstract/README.md)按任务读取，不必加载整个网站。
 
 输入须说明完成状态、贡献类型、目标篇幅与范围，给出带编号及依据位置的当前事实。修改／审查还需要草稿；可选附标题、引言、结论等相关章节。未提供跨节材料时只能报告未检查，不能声称一致。完成稿缺少关键证据时先补材料；计划稿不得补造已完成结果。
 
@@ -18,7 +20,7 @@ python -X utf8 scripts/build_abstract_pack.py --task revise --input .local/my-re
 
 ## 共用的是什么
 
-唯一知识底稿为 [knowledge/writing/abstract.json](../knowledge/writing/abstract.json)。它保存4个概念、9条规则、3个标注案例及3种任务的选择关系。连续教学正文仍在 `content/writing/abstract.html`，不从规则自动拼成一章；生成页提供对应规则链接。
+唯一知识底稿为 [knowledge/writing/abstract.json](../knowledge/writing/abstract.json)。它保存4个概念、9条规则、3个标注案例及3种任务的选择关系。连续教学正文仍在 `content/writing/abstract.html`，不从规则自动拼成一章；生成页提供默认收起的对应规则链接。阅读页只改变呈现、入口与自然语言小标题，AI任务材料、完整知识Markdown、事实模板及六次冻结对照均未更改；没有重跑模型并借新结果替代旧记录。
 
 | 记录 | 固定字段与用途 |
 | --- | --- |

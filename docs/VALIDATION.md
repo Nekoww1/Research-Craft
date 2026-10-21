@@ -1,5 +1,29 @@
 # 网站验证记录
 
+## 2026-10-21 规范页先服务人的阅读
+
+用户反馈字段式规范难以理解。本次要发现的失败是：默认仍需先看任务／执行字段，阅读正文暴露内部编号，收起工具后旧规则链接打不开，或无脚本无法取用材料。新增浏览器断言先在旧页面以“默认页应先展示可读的改写例子，0 !== 1”失败；实现后通过。施工中规则入口的测试定位命中6个折叠项，已按目标规则定位，不改变生产行为来绕过断言。
+
+实际运行：
+
+```powershell
+python -X utf8 -m unittest discover -s tests -p test_abstract_pack.py -v
+python -X utf8 scripts/build_writing.py --check
+python -X utf8 scripts/verify_site.py
+python -X utf8 scripts/verify_writing_sources.py
+node --check assets/abstract-ai.js
+$env:NODE_PATH='C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules'
+node scripts/abstract_ai_check.cjs
+node scripts/writing_sources_check.cjs
+node scripts/writing_design_check.cjs
+node scripts/writing_check.cjs
+git -c core.autocrlf=false diff --check
+```
+
+结果：7个行为测试通过；生成同步保持11页和92个搜索条目。静态为13个HTML、700个页内唯一锚点、1423个链接、712处引用。274正文单元与66核心映射保持原状。浏览器确认默认可读改稿可见、AI字段收起、阅读正文无概念／规则／证据编号；展开后任务切换、键盘、复制、JSON下载及旧深链接可用。1920／1536／1366横屏、768／390、直接文件与无脚本通过，原来源旁注／核心／模块标题／算例／导航／搜索回归通过。
+
+人工看过`.local/abstract-reader-1536.png`及`abstract-reader-390.png`；宽屏左右改稿，窄屏顺序阅读。与Git改动前文本比较，三份AI任务Markdown、完整知识Markdown、研究JSON模板均未改；旧评估文件无改动，没有重跑模型。此次改变的是阅读呈现，不声称已经证明理解更好，也没有增加规范来源或新研究事实。读者效果仍待实际反馈。
+
 ## 2026-10-21 Abstract知识与AI任务样板
 
 要发现的失败：构建不交付AI材料、知识单元无依据或引用失效、任务加载了错误案例、缺研究事实仍生成完成稿输入、正文与规范没有连接，以及任务切换／复制／窄屏／无脚本失效。最窄测试先在旧构建以“缺少可交付任务材料: README.md”失败，再增加生成器与页面。7个行为测试最终通过；它们不判定来源语义，也不能证明模型会遵守所有规则。

@@ -190,11 +190,10 @@ def input_template():
 
 
 def entry_html(data):
-    links = ''.join(f'<a href="../ai/abstract/{name}.md">{escape(t["title"])}材料 ↗</a>' for name, t in data['tasks'].items())
-    return ('<aside class="ai-guide-entry" aria-label="Abstract AI规范样板"><div><span>同一知识底稿 · 人与AI共用</span>'
-            f'<h2>把摘要写法转成可调用的规范</h2><p>{len(data["concepts"])}个概念、{len(data["rules"])}条有条件规则、'
-            f'{len(data["examples"])}个标注案例；来源和研究事实分开。</p></div>'
-            '<div><a class="ai-guide-main" href="../ai/abstract/index.html">阅读规范与使用入口 →</a><nav>' + links + '</nav></div></aside>')
+    return ('<aside class="ai-guide-entry" aria-label="摘要写法与AI材料"><div><span>从例子理解写法</span>'
+            '<h2>看清楚一句摘要为什么这样改</h2><p>先看改写和解释，需要AI协助时再取用相应材料。</p></div>'
+            '<div><a class="ai-guide-main" href="../ai/abstract/index.html">看例子和写作讲解 →</a>'
+            '<nav><a href="../ai/abstract/index.html#ai-tools">给AI用的材料 ↗</a></nav></div></aside>')
 
 
 def lesson_links(data, body):
@@ -204,8 +203,8 @@ def lesson_links(data, body):
             anchors.setdefault(anchor, []).append(rule)
     for anchor, rules in anchors.items():
         marker = re.search(r'<h2 id="' + re.escape(anchor) + r'">.*?</h2>', body)
-        links = ''.join(f'<a href="../ai/abstract/index.html#{r["id"]}">{r["id"]} · {escape(r["title"])}</a>' for r in rules)
-        extra = '<nav class="knowledge-links" aria-label="对应的AI写作规范">' + links + '</nav>'
+        links = ''.join(f'<a href="../ai/abstract/index.html#{r["id"]}">{escape(r["title"])}</a>' for r in rules)
+        extra = '<details class="knowledge-links"><summary>给AI使用本节写法</summary><nav aria-label="对应的AI写作规范">' + links + '</nav></details>'
         body = body[:marker.end()] + extra + body[marker.end():]
     return body
 
@@ -214,6 +213,15 @@ def basis_html(item, evidence):
     return ''.join('<li><a class="cite" href="../../index.html#' + evidence[b['evidence_id']]['source_id'] + '">' +
                    escape(evidence[b['evidence_id']]['author'] + ' · ' + evidence[b['evidence_id']]['locator']) + '</a>' +
                    '<span>' + escape(RELATIONS[b['relation']] + '：' + b['support']) + '</span></li>' for b in item['basis'])
+
+
+def reader_example():
+    """复用已审计教学改稿与紧邻旁注，不另造一份无来源例子。"""
+    lesson = (ROOT / 'content/writing/abstract.html').read_text(encoding='utf-8')
+    match = re.search(r'<div class="compare-panels comparison-study">.*?<aside class="source-note module-source" id="audit-problem-compression-b1".*?</aside>', lesson, re.S)
+    if not match:
+        raise ValueError('缺少已审计的摘要开头改写及来源旁注')
+    return match.group(0).replace('href="../index.html#', 'href="../../index.html#')
 
 
 def viewer_html(data):
@@ -226,8 +234,11 @@ def viewer_html(data):
                      '<h3>先提供当前研究材料</h3><p>填写项目、完成状态、贡献类型，以及带编号和依据的事实；修改／审查另附草稿。案例不提供你的研究事实。</p>'
                      f'<a class="ai-download" href="{name}.md" download>下载任务材料 .md</a><button type="button" class="ai-copy" data-copy="{name}" hidden>复制任务材料</button>'
                      '<a href="input.example.json" download>下载研究材料模板 .json</a><p class="ai-copy-status" role="status"></p></aside></section>')
-    concepts = ''.join(f'<article id="{c["id"]}" class="ai-concept"><span>{c["id"]}</span><h3>{escape(c["title"])}</h3><p>{escape(c["definition"])}</p>'
-                       f'<p class="ai-why">{escape(c["why"])}</p><ul class="ai-basis">{basis_html(c, evidence)}</ul></article>' for c in data['concepts'])
+    reader_titles = ['读者还没看正文，也要知道你做了什么', '先想清楚要说什么，再决定写几句',
+                     '让方法接住前面提出的困难', '结果说到证据支持的地方']
+    concepts = ''.join(f'<article id="{c["id"]}" class="ai-concept"><div><h3>{title}</h3><p>{escape(c["definition"])}</p>'
+                       f'<p>{escape(c["why"])}</p><a class="reader-more" href="../../writing/abstract.html#{c["lesson_anchors"][0]}">继续读这一部分的讲解 →</a></div>'
+                       f'<ul class="ai-basis">{basis_html(c, evidence)}</ul></article>' for c, title in zip(data['concepts'], reader_titles))
     rules = []
     for r in data['rules']:
         fields = [('适用条件', r['applies_when']), ('所需事实', '；'.join(r['requires'])), ('执行动作', r['action']),
@@ -237,22 +248,26 @@ def viewer_html(data):
     examples = []
     for e in data['examples']:
         paragraphs = ''.join('<p><b>' + label + '</b>' + escape(e[key]) + '</p>' for key, label in (('before', '原稿：'), ('after', '处理：')) if key in e)
-        segments = ''.join('<li><b>' + escape(s['role']) + '</b><p>' + escape(s['text']) + '</p><small>' + escape(s['annotation']) + ' · ' + ', '.join(s['rule_ids']) + '</small></li>' for s in e['segments'])
-        examples.append(f'<article id="{e["id"]}" class="ai-example"><header><span>{e["id"]}</span><h3>{escape(e["title"])}</h3></header><p class="ai-example-notice">{escape(e["notice"])}</p>{paragraphs}<ol>{segments}</ol><ul class="ai-basis">{basis_html(e, evidence)}</ul></article>')
+        segments = ''.join('<li><b>' + escape(s['role']) + '</b><p>' + escape(s['text']) + '</p><small>' + escape(s['annotation']) + '</small></li>' for s in e['segments'])
+        examples.append(f'<article id="{e["id"]}" class="ai-example"><header><h3>{escape(e["title"])}</h3></header><p class="ai-example-notice">{escape(e["notice"])}</p>{paragraphs}<ol>{segments}</ol><ul class="ai-basis">{basis_html(e, evidence)}</ul></article>')
     source_cards = ''.join(f'<article id="{e["id"]}"><h3>{e["id"]} · {escape(e["author"])}</h3><p>{escape(e["source_claim"])}</p><p>{escape(e["source_strength"] + "；" + e["context"])}</p>'
                            f'<a href="{escape(e["url"], quote=True)}">{escape(e["locator"])} ↗</a></article>' for e in data['evidence'])
     payload = json.dumps({name: task_markdown(data, name) for name in data['tasks']}, ensure_ascii=False).replace('<', '\\u003c')
     return f'''<!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Abstract AI写作规范 · Research Craft</title><link rel="icon" href="../../assets/mark.svg" type="image/svg+xml"><link rel="stylesheet" href="../../assets/style.css"><link rel="stylesheet" href="../../assets/abstract-ai.css"><script src="../../assets/abstract-ai.js" defer></script></head>
-<body class="abstract-ai-page"><a class="skip-link" href="#main">跳到规范</a><header class="site-header"><a class="header-brand" href="../../index.html#writing"><img src="../../assets/mark.svg" width="34" height="34" alt=""><strong>Research Craft</strong><span>Abstract规范样板</span></a><div class="header-actions"><a href="../../writing/abstract.html">返回摘要教学</a><a href="knowledge.md">完整知识材料</a></div></header>
-<main id="main"><header class="ai-hero"><p class="eyebrow">ABSTRACT / 知识与操作规范</p><h1>先理解写法，再按条件执行</h1><p>{escape(data['scope'])}</p><nav><a href="#tasks">选择任务</a><a href="#concepts">4个概念</a><a href="#rules">9条规则</a><a href="#examples">3个标注案例</a><a href="#evidence">原文与采用边界</a></nav></header>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>读懂摘要写法 · Research Craft</title><link rel="icon" href="../../assets/mark.svg" type="image/svg+xml"><link rel="stylesheet" href="../../assets/style.css"><link rel="stylesheet" href="../../assets/abstract-ai.css"><script src="../../assets/abstract-ai.js" defer></script></head>
+<body class="abstract-ai-page"><a class="skip-link" href="#main">跳到正文</a><header class="site-header"><a class="header-brand" href="../../index.html#writing"><img src="../../assets/mark.svg" width="34" height="34" alt=""><strong>Research Craft</strong><span>摘要写作</span></a><div class="header-actions"><a href="../../writing/abstract.html">完整摘要教学</a><a href="#ai-tools">给AI用</a></div></header>
+<main id="main"><header class="ai-hero"><p class="eyebrow">论文写作 / ABSTRACT</p><h1>先把研究讲明白，再压缩成摘要</h1><p>从一处改写读起，再看问题、方法和结果怎样接在一起。</p><nav><a href="#opening-example">看一处修改</a><a href="#concepts">理解写法</a><a href="#examples">读更多例子</a><a href="#ai-tools">需要AI协助时</a></nav></header>
+<div class="reader-content"><section id="opening-example" class="reader-example" aria-label="从改写理解摘要">{reader_example()}</section>
+<section id="concepts"><header class="ai-section-heading"><h2>从这个例子，回到摘要的写法</h2></header><div class="ai-concept-flow">{concepts}</div></section>
+<section id="examples"><header class="ai-section-heading"><h2>继续看，写法怎样落到句子里</h2></header>{''.join(examples)}</section>
+<p class="reader-next"><a href="../../writing/abstract.html">继续阅读完整摘要教学：逐句分析、不同贡献类型与练习 →</a></p></div>
+<details id="ai-tools" class="ai-tools"><summary><strong>给AI用</strong><span>需要起草、修改或审查时，再展开取用材料</span></summary><div class="ai-tools-body">
 <section class="ai-task-area" id="tasks"><div class="ai-task-nav" role="tablist" aria-label="选择写作任务" hidden>{''.join(nav)}</div>{''.join(tasks)}</section>
 <aside class="ai-evidence-boundary"><h2>两条证据链，分别检查</h2><p><b>写作依据</b>解释为何采用某种写法，关联本页规则和原作者位置。<b>研究事实</b>决定你的论文能写什么，来自另附的当前研究材料。示例数字、示例机制与规范来源都不会自动成为你的研究成果或论文引文。</p></aside>
-<section id="concepts"><header class="ai-section-heading"><span>UNDERSTAND</span><h2>先掌握四个概念</h2></header><div class="ai-concept-grid">{concepts}</div></section>
-<section id="rules"><header class="ai-section-heading"><span>APPLY</span><h2>每条规则都有条件、动作与检查</h2><p>展开查看原文实际支持什么，本站怎样操作化；规则不是统一句型。</p></header>{''.join(rules)}</section>
-<section id="examples"><header class="ai-section-heading"><span>COMPARE</span><h2>沿着标注看修改为什么发生</h2></header>{''.join(examples)}</section>
-<section id="evidence"><header class="ai-section-heading"><span>TRACE</span><h2>保留原作者的不同讲法</h2><p>{escape(data['editorial_policy'])}</p></header><div class="ai-evidence-grid">{source_cards}</div></section>
-<footer><a href="../../writing/abstract.html">返回连续教学 →</a><a href="README.md">AI入口与维护说明</a></footer></main><script id="abstract-task-materials" type="application/json">{payload}</script></body></html>
+<section id="rules"><header class="ai-section-heading"><h2>需要时查看操作细节</h2><p>内部编号用于引用与核对，阅读教学正文不需要记住它们。</p></header>{''.join(rules)}</section>
+</div></details>
+<details id="evidence" class="ai-source-details"><summary>查看原文与采用边界</summary><p>{escape(data['editorial_policy'])}</p><div class="ai-evidence-grid">{source_cards}</div></details>
+<footer><a href="../../writing/abstract.html">完整摘要教学 →</a><a href="README.md">AI材料使用说明</a></footer></main><script id="abstract-task-materials" type="application/json">{payload}</script></body></html>
 '''
 
 
@@ -265,7 +280,7 @@ def generate(check=False):
     outputs['index.html'] = viewer_html(data)
     outputs['README.md'] = '''# Abstract AI写作材料入口
 
-本目录由 knowledge/writing/abstract.json 生成，勿独立修改。网页教学与本材料引用同一稳定知识编号。原文核实与编辑推演见 docs/ABSTRACT_AI_AUDIT.md。
+本目录由 knowledge/writing/abstract.json 生成，勿独立修改；网页另复用 content/writing/abstract.html 中已审计的改稿与来源。网页默认先读例子和解释，AI任务与操作字段在“给AI用”中按需展开。网页与本材料保留同一知识编号供链接追溯，不要求读者记忆。原文核实与编辑推演见 docs/ABSTRACT_AI_AUDIT.md。
 
 1. 按任务读取 draft.md（起草）、revise.md（修改）或 audit.md（审查），不必同时加载三份。
 2. 另附填好的 input.example.json：完成状态、贡献类型、带事实编号及依据的当前研究材料；修改／审查附草稿。
