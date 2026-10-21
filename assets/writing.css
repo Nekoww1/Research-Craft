@@ -32,6 +32,15 @@
 .lesson-sidebar .repo-link { margin-top: 24px; }
 .lesson-local-toc { display: flex; gap: 8px 20px; flex-wrap: wrap; padding: 0 0 25px; border-bottom: 1px solid var(--line); }
 .lesson-local-toc a { font-size: 15px; text-decoration: none; }
+.ai-guide-entry { display: grid; grid-template-columns: 1.4fr 1fr; gap: 25px; margin: 24px 0; padding: 22px 25px; border-left: 4px solid #3158c9; background: #f0f4fc; border-radius: 0 8px 8px 0; }
+.ai-guide-entry span { color: #526b91; font-size: 14px; }
+.ai-guide-entry h2 { font-size: 22px; margin: 6px 0 9px; }
+.ai-guide-entry p { font-size: 16px; line-height: 1.7; }
+.ai-guide-entry > div:last-child { align-self: center; }
+.ai-guide-entry .ai-guide-main { font-size: 18px; font-weight: 600; }
+.ai-guide-entry nav { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 13px; font-size: 15px; }
+.knowledge-links { display: flex; flex-wrap: wrap; gap: 5px 20px; margin: -7px 0 17px; font-size: 14px; }
+@media (max-width: 800px) { .ai-guide-entry { grid-template-columns: 1fr; gap: 16px; } }
 .lesson-section { margin: 38px 0 46px; }
 .lesson-section > h2 { font-size: 25px; margin-bottom: 18px; scroll-margin-top: 16px; letter-spacing: -.3px; }
 .lesson-section > p { max-width: 900px; margin-bottom: 16px; }

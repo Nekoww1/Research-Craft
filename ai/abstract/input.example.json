@@ -1,0 +1,44 @@
+{
+  "project": "",
+  "contribution_type": "empirical_method",
+  "stage": "completed",
+  "target": {
+    "language": "简体中文",
+    "length": "填写目标篇幅或格式",
+    "scope": "填写本次摘要覆盖的研究范围"
+  },
+  "facts": [
+    {
+      "id": "F-PROJECT-01",
+      "role": "problem",
+      "statement": "",
+      "source": ""
+    },
+    {
+      "id": "F-PROJECT-02",
+      "role": "contribution",
+      "statement": "",
+      "source": ""
+    },
+    {
+      "id": "F-PROJECT-03",
+      "role": "method",
+      "statement": "",
+      "source": ""
+    },
+    {
+      "id": "F-PROJECT-04",
+      "role": "evidence",
+      "statement": "",
+      "source": ""
+    },
+    {
+      "id": "F-PROJECT-05",
+      "role": "limitation",
+      "statement": "",
+      "source": ""
+    }
+  ],
+  "draft": "",
+  "related_sections": {}
+}

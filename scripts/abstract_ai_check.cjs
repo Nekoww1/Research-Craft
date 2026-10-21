@@ -1,0 +1,67 @@
+// 规范入口、共享规则、任务下载、键盘操作及无脚本阅读。
+const { chromium } = require('playwright');
+const { strict: assert } = require('node:assert');
+const { pathToFileURL } = require('node:url');
+const path = require('node:path');
+const fs = require('node:fs');
+
+(async () => {
+  const root = path.resolve(__dirname, '..');
+  const base = 'http://127.0.0.1:4173/';
+  const browser = await chromium.launch({ channel: 'chrome', headless: true });
+  try {
+    const context = await browser.newContext({ viewport: { width: 1536, height: 864 }, reducedMotion: 'reduce', permissions: ['clipboard-read', 'clipboard-write'] });
+    const page = await context.newPage();
+    const errors = [];
+    page.on('pageerror', e => errors.push(e.message));
+    page.on('response', r => { if (r.status() >= 400) errors.push(r.status() + ' ' + r.url()); });
+    await page.goto(base + 'writing/abstract.html');
+    await page.locator('.ai-guide-main').click();
+    await page.waitForURL('**/ai/abstract/index.html');
+    assert.equal(await page.locator('.ai-concept').count(), 4);
+    assert.equal(await page.locator('.ai-rule').count(), 9);
+    assert.equal(await page.locator('.ai-example').count(), 3);
+    assert.equal(await page.locator('[data-panel]:visible').getAttribute('data-panel'), 'draft');
+    await page.locator('[data-task="draft"]').press('ArrowRight');
+    assert.equal(await page.locator('[data-panel]:visible').getAttribute('data-panel'), 'revise');
+    assert.equal(await page.locator('[data-task="revise"]').getAttribute('aria-selected'), 'true');
+    await page.locator('[data-task="revise"]').press('End');
+    assert.equal(await page.locator('[data-panel]:visible').getAttribute('data-panel'), 'audit');
+    await page.locator('[data-copy="audit"]').click();
+    await page.waitForFunction(() => document.querySelector('#task-audit .ai-copy-status').textContent.includes('已复制'));
+    const copied = await page.evaluate(() => navigator.clipboard.readText());
+    // Windows剪贴板将换行转为CRLF；核对内容时只归一化平台换行。
+    assert.equal(copied.replace(/\r\n/g, '\n'), fs.readFileSync(path.join(root, 'ai/abstract/audit.md'), 'utf8').replace(/\r\n/g, '\n'));
+    assert.ok(!copied.includes('EX-ABS-01') && copied.includes('EX-ABS-03'));
+    const response = await context.request.get(base + 'ai/abstract/input.example.json');
+    assert.equal(response.status(), 200);
+    assert.equal((await response.json()).facts[0].statement, '');
+    await page.goto(base + 'writing/abstract.html#method-versus-label');
+    await page.locator('.knowledge-links a:has-text("R-ABS-03")').click();
+    await page.waitForURL('**/ai/abstract/index.html#R-ABS-03');
+    assert.equal(await page.locator('#R-ABS-03').getAttribute('open'), '');
+    for (const [width, height] of [[1920,1080], [1536,864], [1366,768], [768,900], [390,844]]) {
+      await page.setViewportSize({ width, height });
+      await page.goto(base + 'ai/abstract/index.html');
+      assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), '规范页横向溢出: ' + width);
+      const boxes = await page.locator('#task-draft > div, #task-draft > aside').evaluateAll(ns => ns.map(n => { const r = n.getBoundingClientRect(); return { x: r.x, y: r.y }; }));
+      if (width > 800) assert.ok(boxes[1].x > boxes[0].x && Math.abs(boxes[1].y - boxes[0].y) < 2, '桌面任务与材料说明未并排');
+      else assert.ok(boxes[1].y > boxes[0].y, '窄屏未顺序阅读');
+      if (width === 1536 || width === 390) await page.screenshot({ path: path.join(root, '.local/abstract-ai-' + width + '.png') });
+    }
+    await page.goto(pathToFileURL(path.join(root, 'ai/abstract/index.html')).href);
+    await page.locator('[data-task="audit"]').click();
+    assert.ok(await page.locator('#task-audit').isVisible());
+    const plainContext = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 1366, height: 768 } });
+    const plain = await plainContext.newPage();
+    await plain.goto(pathToFileURL(path.join(root, 'ai/abstract/index.html')).href);
+    assert.equal(await plain.locator('.ai-task-panel:visible').count(), 3);
+    assert.equal(await plain.locator('.ai-download:visible').count(), 3);
+    await plain.locator('#R-ABS-04 summary').click();
+    assert.ok(await plain.locator('#R-ABS-04 dd').first().isVisible());
+    await plainContext.close();
+    assert.deepEqual(errors, []);
+    await context.close();
+    console.log('PASS: Abstract共享知识入口、任务选择/键盘、复制与JSON模板、规则深链接，3桌面/2窄屏、直接文件与无脚本。');
+  } finally { await browser.close(); }
+})().catch(e => { console.error(e); process.exitCode = 1; });

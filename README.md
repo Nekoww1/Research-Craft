@@ -34,6 +34,8 @@ python -X utf8 -m http.server 4173 --bind 127.0.0.1
 
 2026-10-21 按用户要求完成写作区首轮正文来源审计：先核实原文并记录处理决定，再改写，覆盖200个直接正文段、74个整体教学模块与66个核心说明。旁注给出具体页码／小节，区分原文转述、据此推演、案例释义与教学构造。训练复核、统计表达、逆向提纲、讨论与结论的缺口按新增可靠来源重写，并修正图注点身份与部分原文定位。详见 [正文来源审计](docs/WRITING_AUDIT.md)；软件验证只确认映射和呈现，不能代替语义判断。
 
+Abstract 新增[人与AI共用的规范页](ai/abstract/index.html)：4个概念、9条条件规则、3个标注案例，分别提供起草、修改、审查材料。每项记录原文与采用边界，使用时另附当前研究事实。用法与维护见 [Abstract AI样板](docs/ABSTRACT_AI.md)。已完成六次独立会话对照：参考输入token减少24.8%–32.5%，两种条件均守住主要事实边界，尚未观察到明确质量优势；[固定提示、原始答复与局限](evals/abstract/run-2026-10-21/REPORT.md)全部保留。本轮仅做摘要，未安装为平台专属Skill。
+
 19条初始线索、后续案例与补充规范的身份及阅读范围分别记录。刘洋第三方课件副本按写作主题选页视觉核对，并从其案例追到三篇原论文；不能冒称与原站版本完全一致或所有材料全文精读。核对用公开PDF保存在忽略目录，不随网站再分发。没有开展实验复现或真实读者效果评估。
 
 网站使用静态 HTML/CSS/JavaScript，禁用脚本也能阅读；阅读不需要构建。写作正文在 `content/writing/` 维护，由标准库脚本生成可直接打开的 `writing/` 页面与搜索索引。GitHub Pages 尚未配置、未发布。
@@ -46,6 +48,8 @@ python -X utf8 -m http.server 4173 --bind 127.0.0.1
 | [写作正文](content/writing/) | 独立页面的唯一编辑源，生成结果在 `writing/` |
 | [阅读记录](docs/READING_NOTES.md) | 阅读范围、具体观点、定位、理由与适用边界 |
 | [写作区正文来源审计](docs/WRITING_AUDIT.md) | 改写前处理决定、逐段与核心映射、来源支持及推演边界 |
+| [Abstract AI入口](ai/abstract/README.md) | 起草／修改／审查材料、研究事实模板和完整知识 |
+| [Abstract知识底稿](knowledge/writing/abstract.json) | 可追溯概念、条件规则、标注案例及任务选择关系的编辑源 |
 | [概念整理](docs/CONCEPTS.md) | 跨来源的关系、差异与编辑组织 |
 | [内容进度](docs/CONTENT_STATUS.md) | 已采用哪些材料、现有模块覆盖什么、大章节还缺什么 |
 | [写作章组织依据](docs/WRITING_STRUCTURE.md) | 全篇与分节的教学主线、来源定位与编辑边界 |
@@ -62,7 +66,7 @@ node --check assets/app.js
 node --check assets/lesson.js
 ```
 
-修改写作正文、页面目录或首页来源记录后，先运行 `python -X utf8 scripts/build_writing.py`，并将正文源与生成页面一起提交。`--check` 会发现未同步的交付文件，不会重写文件。
+修改写作正文、页面目录、首页来源记录或Abstract知识底稿后，先运行 `python -X utf8 scripts/build_writing.py`，并将源与生成页面／AI材料一起提交。`--check` 会发现未同步的交付文件，不会重写文件。规范行为测试：`python -X utf8 -m unittest discover -s tests -p test_abstract_pack.py -v`。
 
 浏览器脚本使用验证环境中的 Playwright 与 Chrome；这是维护检查依赖，不是网站运行依赖。运行方式见 [验证记录](docs/VALIDATION.md)。
 

@@ -1,5 +1,35 @@
 # 网站验证记录
 
+## 2026-10-21 Abstract知识与AI任务样板
+
+要发现的失败：构建不交付AI材料、知识单元无依据或引用失效、任务加载了错误案例、缺研究事实仍生成完成稿输入、正文与规范没有连接，以及任务切换／复制／窄屏／无脚本失效。最窄测试先在旧构建以“缺少可交付任务材料: README.md”失败，再增加生成器与页面。7个行为测试最终通过；它们不判定来源语义，也不能证明模型会遵守所有规则。
+
+实际执行并通过：
+
+```powershell
+python -X utf8 -m unittest discover -s tests -p test_abstract_pack.py -v
+python -X utf8 scripts/build_writing.py --check
+python -X utf8 scripts/verify_writing_sources.py
+python -X utf8 scripts/verify_site.py
+node --check assets/abstract-ai.js
+$env:NODE_PATH='C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules'
+node scripts/abstract_ai_check.cjs
+node scripts/writing_sources_check.cjs
+node scripts/writing_design_check.cjs
+node scripts/writing_check.cjs
+node scripts/browser_check.cjs
+git -c core.autocrlf=false diff --check
+```
+
+- 构建：11个写作页、92个搜索条目；另生成7份Abstract交付物。知识结构含4概念、9规则、3案例。静态检查为13个HTML、697个页内唯一锚点、1418个链接、709处引用，UTF-8无BOM通过。
+- 既有来源：274正文单元与66核心说明映射不变；新增知识的原文决定在`ABSTRACT_AI_AUDIT.md`，不是用旧覆盖率背书新规则。
+- 新页：从教学跳转、三任务与方向键／Home／End、复制内容与生成Markdown一致、下载事实JSON、规则深链接自动展开；1920／1536／1366横屏并排，768／390顺序阅读且无整页溢出；直接文件及无脚本仍可读／下载／展开。无浏览器脚本或HTTP错误。
+- 施工中服务未启动导致首次浏览器访问失败，恢复仓库4173静态服务后继续。Windows剪贴板会把LF转CRLF，首次内容断言因此失败；测试只归一化换行后比较全部内容，没有通过修改生产输出掩盖差异。
+- 原有来源旁注、33项核心、56处模块标题、批注／MaxSim／图注、搜索／旧链接／返回、三种桌面与窄屏／无脚本回归通过。人工看过规范页1536与390截图，位于`.local/abstract-ai-1536.png`及`abstract-ai-390.png`；不把布局断言当视觉质量认证。
+- 实际模型任务：6个不共享历史的子代理会话，每条件一次，保留原始答复；两条件均守住本例主要事实边界，未严格满足汉字数。指定分词器参考输入减少24.8%–32.5%，没有明确质量优势，也不证明费用／延迟改善。[完整设计、记录与局限](../evals/abstract/run-2026-10-21/REPORT.md)。
+
+范围限制：本轮没有模型API集成、安装式Skill、真实个人论文、不同贡献类型覆盖、独立盲评或读者效果试验；公开论文事实包不等于复现实验。其他写作页没有自动转成任务规范，其他三章仍是基础稿。
+
 ## 2026-10-21 正文来源审计与就近出处
 
 要发现的失败：正文和模块只有页末来源组、核心要领没有各自依据、审计单元漏标／重复、具体出处未登记，或旁注挤压正文、深底链接缺对比、键盘／窄屏／无脚本无法追溯。最窄来源覆盖检查先在旧稿以“abstract.html: 缺少逐段来源，页末来源组不足以通过”失败，再实施来源核对、重写与旁注。施工阶段一次遗漏讨论章映射已补齐；不把填充一个来源组当作语义审查。

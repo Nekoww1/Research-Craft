@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-21",
+  "status": "completed_six_independent_sessions",
+  "source_base_commit": "6f2ea13db0bd67b7eea3fe4d3a0759c15d92409f",
+  "model": "inherit_parent_model_separate_sessions",
+  "repetitions_per_condition": 1,
+  "tokenizer": "o200k_base",
+  "token_note": "分词数只作指定分词器的输入规模参照，不是当前模型实际计费或上下文用量。 Does not include platform system instructions or tool overhead.",
+  "design": "同一任务契约与研究事实；写作参考分别是现有摘要全文或按任务选择的规范；六个样本不共享聊天历史。",
+  "limitations": [
+    "单模型每条件一次的探索性试验",
+    "不测服务延迟或统计显著性",
+    "规则编号不作为A/B共同质量得分；A条件没有同一编号体系"
+  ],
+  "samples": [
+    {
+      "sample": "sample-01",
+      "task": "draft",
+      "condition": "chapter",
+      "prompt": "prompts/sample-01.md",
+      "response": "responses/sample-01.md",
+      "characters": 10505,
+      "utf8_bytes": 24060,
+      "reference_tokens": 6499,
+      "session": "/root/abstract_trial01",
+      "completion": "saved_raw_response",
+      "extra_material_read": "none_self_reported"
+    },
+    {
+      "sample": "sample-02",
+      "task": "audit",
+      "condition": "structured",
+      "prompt": "prompts/sample-02.md",
+      "response": "responses/sample-02.md",
+      "characters": 7439,
+      "utf8_bytes": 16202,
+      "reference_tokens": 4392,
+      "session": "/root/abstract_trial02",
+      "completion": "saved_raw_response",
+      "extra_material_read": "none_self_reported"
+    },
+    {
+      "sample": "sample-03",
+      "task": "revise",
+      "condition": "structured",
+      "prompt": "prompts/sample-03.md",
+      "response": "responses/sample-03.md",
+      "characters": 8151,
+      "utf8_bytes": 18020,
+      "reference_tokens": 4887,
+      "session": "/root/abstract_trial03",
+      "completion": "saved_raw_response",
+      "extra_material_read": "none_self_reported"
+    },
+    {
+      "sample": "sample-04",
+      "task": "draft",
+      "condition": "structured",
+      "prompt": "prompts/sample-04.md",
+      "response": "responses/sample-04.md",
+      "characters": 8210,
+      "utf8_bytes": 18107,
+      "reference_tokens": 4889,
+      "session": "/root/abstract_trial04",
+      "completion": "saved_raw_response",
+      "extra_material_read": "none_self_reported"
+    },
+    {
+      "sample": "sample-05",
+      "task": "audit",
+      "condition": "chapter",
+      "prompt": "prompts/sample-05.md",
+      "response": "responses/sample-05.md",
+      "characters": 10510,
+      "utf8_bytes": 24079,
+      "reference_tokens": 6508,
+      "session": "/root/abstract_trial05",
+      "completion": "saved_raw_response",
+      "extra_material_read": "none_self_reported"
+    },
+    {
+      "sample": "sample-06",
+      "task": "revise",
+      "condition": "chapter",
+      "prompt": "prompts/sample-06.md",
+      "response": "responses/sample-06.md",
+      "characters": 10510,
+      "utf8_bytes": 24071,
+      "reference_tokens": 6499,
+      "session": "/root/abstract_trial06",
+      "completion": "saved_raw_response",
+      "extra_material_read": "none_self_reported"
+    }
+  ],
+  "execution": "User-authorized child sessions with fork_turns=none; no model override, no retries or output selection.",
+  "review": "Implementation agent manual comparison; not independent or blind.",
+  "model_parameters": "Inherited current model; server model build and sampling parameters unavailable."
+}

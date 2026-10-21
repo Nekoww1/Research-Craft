@@ -6,6 +6,7 @@ from pathlib import Path
 import json
 import re
 import sys
+import build_abstract_pack
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / 'content/writing'
@@ -46,6 +47,7 @@ def write(path, text):
 
 
 def generate():
+    abstract_knowledge = build_abstract_pack.generate('--check' in sys.argv)
     index = (ROOT / 'index.html').read_text(encoding='utf-8')
     registry = {key: html for html, key in re.findall(r'(<div class="source-entry" id="(S\d{3})">.*?</div></div>)', index)}
     search = []
@@ -58,6 +60,10 @@ def generate():
         assert core_match, f'{slug}: 正文开头缺少本节核心'
         core = core_match.group(1)
         lesson_body = body[core_match.end():]
+        ai_entry = ''
+        if slug == 'abstract':
+            ai_entry = build_abstract_pack.entry_html(abstract_knowledge)
+            lesson_body = build_abstract_pack.lesson_links(abstract_knowledge, lesson_body)
         sources = list(dict.fromkeys(re.findall(r'class="cite" href="../index.html#(S\d{3})"', body)))
         for source in sources:
             assert source in registry, f'index.html 缺少来源: {source}'
@@ -84,7 +90,7 @@ def generate():
 <a class="skip-link" href="#main">跳到正文</a>
 <header class="site-header"><a class="header-brand" href="../index.html#orientation"><img src="../assets/mark.svg" width="34" height="34" alt=""><strong>Research Craft</strong><span>科研方法与实践</span></a><div class="header-actions"><a href="../index.html#writing">写作总览</a><a href="../index.html#sources">来源与阅读记录</a><button id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar" hidden>展开目录</button></div></header>
 <aside class="sidebar lesson-sidebar" id="sidebar" aria-label="写作模块导航"><a class="back-book" href="../index.html#writing">← 写作模块总览</a><div class="search" id="search-box" hidden><label for="search-input">在写作模块中查找</label><input id="search-input" type="search" placeholder="试试：摘要、比较、动词" autocomplete="off" aria-controls="search-results"><div id="search-results" aria-live="polite"></div></div><nav aria-label="写作页面"><p class="nav-label">论文写作 / 11 个独立页面</p>{nav}</nav><a class="repo-link" href="https://github.com/Nekoww1/Research-Craft">GitHub · 内容与修订 ↗</a></aside>
-<main id="main"><article class="lesson"><header class="lesson-header"><p class="eyebrow">论文写作 / {number:02d} / {escape(page['english'])}</p><h1>{escape(page['title'])}</h1><p class="lesson-deck">{escape(page['deck'])}</p></header><p class="source-key"><b>沿正文追溯：</b>旁注区分原文转述、据此推演、案例释义和教学构造；点来源查看原文入口与阅读范围。</p>{core}<nav class="lesson-local-toc" aria-label="本页内容">{toc}</nav><div class="lesson-body">{lesson_body}</div><details class="lesson-sources"><summary>本页依据与阅读范围</summary><p>各段、模块和核心要领的具体依据与边界见就近旁注。教学数字与自编模板不作为原作者成果或原话；本页来源列表只说明所读材料，不为整页概括背书。</p>{source_html}</details><nav class="lesson-pagination" aria-label="前后页面">{''.join(neighbours)}</nav></article><footer><span>Research Craft · 持续修订的教学正文</span><a href="../index.html#writing">写作总览 ↑</a></footer></main>
+<main id="main"><article class="lesson"><header class="lesson-header"><p class="eyebrow">论文写作 / {number:02d} / {escape(page['english'])}</p><h1>{escape(page['title'])}</h1><p class="lesson-deck">{escape(page['deck'])}</p></header><p class="source-key"><b>沿正文追溯：</b>旁注区分原文转述、据此推演、案例释义和教学构造；点来源查看原文入口与阅读范围。</p>{core}{ai_entry}<nav class="lesson-local-toc" aria-label="本页内容">{toc}</nav><div class="lesson-body">{lesson_body}</div><details class="lesson-sources"><summary>本页依据与阅读范围</summary><p>各段、模块和核心要领的具体依据与边界见就近旁注。教学数字与自编模板不作为原作者成果或原话；本页来源列表只说明所读材料，不为整页概括背书。</p>{source_html}</details><nav class="lesson-pagination" aria-label="前后页面">{''.join(neighbours)}</nav></article><footer><span>Research Craft · 持续修订的教学正文</span><a href="../index.html#writing">写作总览 ↑</a></footer></main>
 <aside class="page-outline" aria-label="本页内容"><p>本页内容</p><nav>{toc}</nav><a class="outline-sources" href="../index.html#sources">查阅原始材料 ↗</a></aside><dialog id="source-dialog" aria-label="原始来源与阅读范围"><div class="dialog-header"><span>原始来源与阅读范围</span><form method="dialog"><button type="submit" aria-label="关闭来源">关闭 ×</button></form></div><div id="source-content"></div><a class="all-sources-link" href="../index.html#sources">全部来源与阅读记录 →</a></dialog>
 </body></html>
 '''

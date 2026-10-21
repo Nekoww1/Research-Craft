@@ -28,7 +28,7 @@ class SiteParser(HTMLParser):
 
 
 def main():
-    files = [ROOT / 'index.html', *sorted((ROOT / 'writing').glob('*.html'))]
+    files = [ROOT / 'index.html', *sorted((ROOT / 'writing').glob('*.html')), *sorted((ROOT / 'ai').rglob('*.html'))]
     parsed = {}
     for path in files:
         parser = SiteParser()
