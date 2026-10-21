@@ -14,7 +14,7 @@ const fs = require('node:fs');
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(base + 'abstract.html');
     assert.equal(await page.locator('.lesson-core').count(), 1, '写作页缺少明确的本节核心入口');
-    const text = await page.locator('.lesson-section > p').first().evaluate(n => {
+    const text = await page.locator('.sourced-prose > p').first().evaluate(n => {
       const s = getComputedStyle(n);
       return { size: parseFloat(s.fontSize), leading: parseFloat(s.lineHeight), gap: parseFloat(s.marginBottom) };
     });
@@ -60,7 +60,7 @@ const fs = require('node:fs');
       assert.equal(await core.count(), 1, '本节核心缺失或重复: ' + item.slug);
       assert.equal(await core.locator('.core-point').count(), 3, '核心要领不完整: ' + item.slug);
       assert.equal(await core.locator('.core-transfer > div').count(), 2, '缺少产出或掌握判断: ' + item.slug);
-      assert.ok(await core.locator('.core-basis .cite').count() >= 1, '核心缺少提炼依据: ' + item.slug);
+      assert.equal(await core.locator('.core-point > .source-note:has(.cite)').count(), 3, '核心要领缺少各自依据: ' + item.slug);
       assert.equal(await core.locator('.core-bridge a').count(), 2, '跨节职责连接缺失: ' + item.slug);
       assert.ok(await core.evaluate(n => !!(n.compareDocumentPosition(document.querySelector('.lesson-local-toc')) & Node.DOCUMENT_POSITION_FOLLOWING)), '核心应先于小节目录: ' + item.slug);
       const coreTargets = await core.locator('a[href^="#"]').evaluateAll(ns => ns.map(n => n.getAttribute('href').slice(1)));

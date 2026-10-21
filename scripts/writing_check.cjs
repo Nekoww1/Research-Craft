@@ -34,7 +34,7 @@ const fs = require('node:fs');
         assert.equal(await page.locator('main h1').count(), 1);
         assert.equal(await page.locator('.lesson-sidebar nav a[aria-current="page"]').getAttribute('href'), item.slug + '.html');
         assert.equal(await page.locator('.lesson-sidebar nav a').count(), pages.length);
-        const size = await page.locator('.lesson-section > p').first().evaluate(n => parseFloat(getComputedStyle(n).fontSize));
+        const size = await page.locator('.sourced-prose > p').first().evaluate(n => parseFloat(getComputedStyle(n).fontSize));
         assert.equal(size, 18, '写作正文应为 18px: ' + item.slug + ', ' + width);
         await overflow(width + ' ' + item.slug);
         if (item.slug === 'method') {

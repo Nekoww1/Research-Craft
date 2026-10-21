@@ -35,6 +35,32 @@
 .lesson-section { margin: 38px 0 46px; }
 .lesson-section > h2 { font-size: 25px; margin-bottom: 18px; scroll-margin-top: 16px; letter-spacing: -.3px; }
 .lesson-section > p { max-width: 900px; margin-bottom: 16px; }
+.sourced-prose { display: grid; grid-template-columns: minmax(0, 1fr) 208px; gap: 26px; align-items: start; margin-bottom: 20px; }
+.sourced-prose > p { min-width: 0; max-width: 900px; margin-bottom: 16px; }
+.source-note { min-width: 0; padding: 3px 0 3px 16px; border-left: 2px solid #c5d3e9; color: #455d77; font-size: 14px; line-height: 1.65; }
+.source-note > strong { display: block; font-size: 15px; line-height: 1.5; color: #274467; margin-bottom: 6px; }
+.lesson .source-note .cite { display: block; margin: 0 0 5px; padding: 0; border: 0; border-radius: 0; background: transparent; font-size: 14px; line-height: 1.55; text-decoration: underline; text-underline-offset: 3px; }
+.source-note > small { display: block; font-size: 14px; line-height: 1.65; }
+.source-note[data-evidence-kind="teaching"] { border-color: #c6b17b; }
+.source-note[data-evidence-kind="case"] { border-color: #83b4a5; }
+.module-source { display: flex; align-items: baseline; gap: 6px 14px; flex-wrap: wrap; padding: 12px 16px; border-left-width: 3px; background: #f7f9fc; margin: -10px 0 24px; }
+.module-source > strong { margin: 0; }
+.lesson .module-source .cite { margin: 0; }
+.module-source > small { flex-basis: 100%; }
+.source-key { font-size: 15px; color: #455d77; padding: 12px 0 18px; }
+.source-key b { color: #274467; }
+.core-overview .source-note { margin: 20px 0 0; padding: 12px 0 0; border-left: 0; border-top: 1px solid #ffffff40; background: transparent; color: #e5edff; }
+.core-overview .source-note > strong, .lesson .core-overview .source-note .cite { color: #fff; }
+.core-point .source-note { margin: 10px 0 0; padding: 8px 0 0; border-left: 0; border-top: 1px solid var(--line); background: transparent; gap: 5px 10px; }
+.lesson-core > .module-source { grid-column: 1 / -1; margin: 0; padding: 10px 28px; border-left: 0; border-bottom: 1px solid var(--line); background: #f8fafd; }
+@media (max-width: 1200px) {
+  .sourced-prose { grid-template-columns: minmax(0, 1fr) 180px; gap: 20px; }
+}
+@media (max-width: 1000px) {
+  .sourced-prose { display: block; }
+  .sourced-prose > .source-note { display: flex; flex-wrap: wrap; gap: 5px 12px; margin: 0 0 20px; padding: 10px 14px; background: #f7f9fc; }
+  .sourced-prose > .source-note small { flex-basis: 100%; }
+}
 .lesson-section p { font-size: 18px; line-height: 1.8; }
 .lesson-section h3 { font-size: 21px; font-weight: 700; margin-bottom: 12px; }
 .lesson-section p + p { margin-top: 0; }

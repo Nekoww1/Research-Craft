@@ -1,5 +1,22 @@
 # 初始来源目录
 
+## 2026-10-21 写作区来源审计：本轮实际阅读
+
+此段为最新状态，覆盖下文历史范围。先阅读、判断支持关系、记录改写决定，再修正文；逐段映射见 [WRITING_AUDIT.md](WRITING_AUDIT.md)。新增的是补具体缺口的来源，不能把它们的建议归给刘洋或 Jones。
+
+| ID | 原文与载体 | 实际阅读与用途 | 边界 |
+| --- | --- | --- | --- |
+| S025 | [NeurIPS Paper Checklist Guidelines](https://nips.cc/public/guides/PaperChecklist) | 官方页条目1–8：主张、局限、假设证明、复核、数据代码、设置、不确定性、计算资源 | 当前网页，访问日2026-10-21；机器学习会议报告要求，不是全学科写作定律 |
+| S026 | [Purdue OWL Reverse Outlining](https://owl.purdue.edu/owl/general_writing/the_writing_process/reverse_outlining.html) | 方法正文两步及修订用途：段落实际主题、怎样推进论证 | 本站表格与跨节对读是练习；未照搬固定词数 |
+| S027 | [Mensh & Kording 2017](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005619) | Overview、Introduction、Rule1–10、Discussion；贡献、结构、结果、讨论、修改 | 作者建议文章，未追读其全部参考文献；另核实[2017勘误](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005830)仅补图1图例 |
+| S028 | Manchester Academic Phrasebank：[结果](https://www.phrasebank.manchester.ac.uk/reporting-results/)、[讨论](https://www.phrasebank.manchester.ac.uk/discussing-findings/)、[结论](https://www.phrasebank.manchester.ac.uk/writing-conclusions/) | 三页解释性导言，兼看功能标题；定位／突出观察、讨论循环、回顾／最终判断 | 未通读全部例句、未读付费书；先前尝试的 being-cautious 路径404，未作为依据 |
+| S029 | [ASA 2016-03-07 官方发布说明](https://www.amstat.org/asa/files/pdfs/p-valuestatement.pdf) | 3页PDF的说明正文及p.2六项原则，尤其原则3–6 | 官方协会说明，不是期刊声明全文；期刊页403。没有据此推荐统一检验或运行次数 |
+| S030 | [Rougier、Droettboom、Bourne 2014](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003833) | Rule1–10与相关图注；用于受众、信息、媒介、图注、颜色、视觉误导 | 写作／设计建议，不冒称普遍效果实验；历史工具列表不作今日推荐 |
+
+S020 重读 arXiv v2 的 §3.1、§3.3–3.6、§4研究问题，核对 §4.1–4.5 采用段落。公式与训练在 §3.3（式3），离线索引在 §3.4，固定候选重排在 §3.5，全库检索在 §3.6；旧引用过宽之处已修。S010 重读 §3.1–3.2，保留“猜测可以有价值，但不能冒充证实解释”与“消融非必要亦非充分”的条件。
+
+S021 重读文件pp.7–8／会议pp.592–593：§5、图4、表3–4、脚注7、§6；S023复核§2的两路线与具体差异。S002复核官方整理写作段；S009用本地52页原PDF核对所引页，S019沿既有选页记录并再次视觉核对文件p.41、p.160。未对勘S019与原站版本，未复现论文实验、未新增读者效果证据。
+
 ## 2026-10-20 写作模块分页扩写：本次新增证据
 
 本段覆盖下文较早状态。**S001 原站下载仍失败；S019 已实际取得并选读，二者的版本关系尚未完全核实。** 六份 PDF 保存在忽略目录 `.local/pdfs/` 供本机核对，不随站点提交或再分发；可追溯的观点与页码记在仓库中。

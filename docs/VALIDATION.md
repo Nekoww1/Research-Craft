@@ -1,5 +1,36 @@
 # 网站验证记录
 
+## 2026-10-21 正文来源审计与就近出处
+
+要发现的失败：正文和模块只有页末来源组、核心要领没有各自依据、审计单元漏标／重复、具体出处未登记，或旁注挤压正文、深底链接缺对比、键盘／窄屏／无脚本无法追溯。最窄来源覆盖检查先在旧稿以“abstract.html: 缺少逐段来源，页末来源组不足以通过”失败，再实施来源核对、重写与旁注。施工阶段一次遗漏讨论章映射已补齐；不把填充一个来源组当作语义审查。
+
+人工内容检查先于改写决定：逐段阅读11页，回查已读作者原文，并定向补读S025–S030；具体支持关系、条件与撤改决定见WRITING_AUDIT.md。修正训练/复核、统计、逆向提纲、讨论/结论职责、结果段骨架依据、图注点身份和原文定位。浏览器复查时发现深色核心上的白字来源链接继承浅色底，已移除来源标签背景并补针对回归。
+
+实际验证命令：
+
+```powershell
+python -X utf8 scripts/build_writing.py --check
+python -X utf8 scripts/verify_writing_sources.py
+python -X utf8 scripts/verify_site.py
+node --check assets/lesson.js
+node --check scripts/writing_sources_check.cjs
+node --check scripts/writing_design_check.cjs
+$env:NODE_PATH='C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules'
+node scripts/writing_sources_check.cjs
+node scripts/writing_design_check.cjs
+node scripts/writing_check.cjs
+node scripts/browser_check.cjs
+git -c core.autocrlf=false diff --check
+```
+
+- 来源映射：200个直接正文段＋74个整体模块＋66个核心说明；原文转述45、据此推演141、案例释义23、教学构造131。上述身份是本站审计判断，不是外部认证。软件只查覆盖、身份、引用登记和记录一致，**不能判定原文是否蕴含正文判断**。
+- 静态：11页与92条搜索同步；12个HTML，662个页内唯一锚点、1344个链接、674处就近引用；UTF-8无BOM。教学正文约31,817汉字（移除来源旁注后），不以新增来源说明膨胀来计算教学深度。
+- 浏览器：11页在1920、1536、1366横屏均有段落右侧旁注，正文宽度至少500px；768／390旁注可见且无整页横向溢出。六个新来源可用键盘打开弹层并Escape关闭；深色核心来源文字有可读对比；直接文件与无脚本能跳到来源区。
+- 原有设计／功能：33项要领、产出／掌握判断、前后关系、56处模块标题、摘要批注键盘操作、三种聚合、图注、搜索、旧链接、前后导航、横向对照及无脚本阅读回归。
+- 人工视觉复查方法训练正文与核心截图：`.local/writing-audit-method-1366.png`、`writing-audit-core-1536.png`。原有截图由相应脚本生成。`.local/`约37.2MiB，资料与截图均保留于忽略目录，没有外部中转目录。
+
+范围限制：没有论文实验复现、统计重分析、真实读者试验，也没有把全站其他章节当作同等级已审计。来源访问／版本缺口见SOURCES.md。通过的是工程与呈现验证；内容结论仍可按原文逐项复审。
+
 ## 2026-10-21 各页学习核心与迁移路径
 
 要发现的失败：有的独立页缺少学习核心，核心要领不能进入实际讲解，跨页职责连接或来源失效，新增核心未进入搜索，以及页首模块挤压或遮挡原有正文。最窄检查先在原站以“写作页缺少明确的本节核心入口，0 !== 1”失败，再实施内容与布局。
