@@ -34,6 +34,32 @@ class AbstractPackTests(unittest.TestCase):
         self.assertIn('EX-ABS-03', text)
         self.assertIn('教学案例不得作为当前项目事实', text)
 
+    def test_tasks_share_fact_guards_but_have_different_default_guidance(self):
+        m = load_builder()
+        data = m.load_knowledge()
+        draft = {r['id'] for r in m.selected(data, 'draft')[1]}
+        revise = {r['id'] for r in m.selected(data, 'revise')[1]}
+        self.assertNotEqual(draft, revise, '起草与修改不能继续无差别载入全部规则')
+        self.assertIn('R-ABS-02', draft)
+        self.assertNotIn('R-ABS-02', revise)
+        self.assertIn('R-ABS-07', revise)
+        for task in data['tasks']:
+            rules = {r['id'] for r in m.selected(data, task)[1]}
+            self.assertTrue({'R-ABS-01', 'R-ABS-04', 'R-ABS-05', 'R-ABS-08', 'R-ABS-09'} <= rules)
+            for example in m.selected(data, task)[2]:
+                self.assertTrue({r for s in example['segments'] for r in s['rule_ids']} <= rules)
+
+    def test_optional_guidance_changes_export_without_losing_fact_guards(self):
+        m = load_builder()
+        data = m.load_knowledge()
+        default = m.task_markdown(data, 'revise')
+        extended = m.task_markdown(data, 'revise', ['R-ABS-03'])
+        self.assertNotIn('#### R-ABS-03', default)
+        self.assertIn('#### R-ABS-03', extended)
+        self.assertIn('#### R-ABS-08', extended)
+        with self.assertRaisesRegex(ValueError, '可选'):
+            m.task_markdown(data, 'draft', ['R-NOT-AVAILABLE'])
+
     def test_missing_rule_basis_is_rejected_before_build(self):
         m = load_builder()
         data = copy.deepcopy(m.load_knowledge())

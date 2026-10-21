@@ -1,5 +1,31 @@
 # 网站验证记录
 
+## 2026-10-21 AI任务选材与导出联动
+
+要发现的失败：切换任务只换说明，实际规则／案例／交付不变；起草与修改仍默认全载九条；补选后预览、复制、下载或CLI彼此不一致；细分任务时丢失事实约束或案例依赖。新增行为测试先以“起草与修改不能继续无差别载入全部规则”失败，补选API尚不存在时报参数数量错误；浏览器先以“任务切换区应展示实际选材”失败。随后分离共通核对与任务重点、增加明确条件的补选，并让同一生成器供应页面与文本。
+
+实际执行通过：
+
+```powershell
+python -X utf8 -m unittest discover -s tests -p test_abstract_pack.py -v
+python -X utf8 scripts/build_writing.py --check
+python -X utf8 scripts/verify_site.py
+python -X utf8 scripts/verify_writing_sources.py
+node --check assets/abstract-ai.js
+$env:NODE_PATH='C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules'
+node scripts/abstract_ai_check.cjs
+python -X utf8 scripts/build_abstract_pack.py --task revise --input evals/abstract/research-input.json --include-rule R-ABS-03 --output .local/abstract-revise-cli.md
+git -c core.autocrlf=false diff --check
+```
+
+9项行为测试通过，涵盖任务默认选材不同、共通事实约束与案例引用保留、可选模块真实进入文本、非可选编号拒绝等。另逐项检查14种组合（起草2、修改8、审查4）的Markdown规则标题与选材集合一致，CLI补选保留R03与当前事实编号、不夹带R02。规则含义与教学正文没有改动，故本轮不重复跑全部11页视觉回归；针对实际改动检查任务区与旧入口。
+
+浏览器逐任务确认默认8／6／7条、案例EX01／02／03、不同交付，并比较三任务复制内容与默认文件完全一致；修改任务勾选方法指导后变7条，复制与实际下载内容一致，取消后还原。方向键、End、旧规则深链接、1920／1536／1366横屏、768／390、直接文件及无脚本通过；无脚本隐藏选择控件、保留默认下载。无JS／HTTP错误。
+
+构建仍为11个写作页和92个搜索条目，静态13个HTML、727个页内唯一锚点、1518个链接、807处引用；引用数量增加来自任务预览复用原有规则与出处，不表示新增精读。274正文单元／66核心映射不变。人工查看任务预览截图，`.local/abstract-task-draft-1536.png`与`abstract-task-revise-1536.png`；测试文件与CLI样稿均留忽略目录，不自动删除。
+
+没有重新运行模型。历史六次输入、答复与报告保持原样，只代表旧任务编排；本轮不援引旧输入量或质量观察证明新包更好。补选由使用者决定，未实现自动读取草稿再选规则；显示的交付物是任务要求，并非本轮新模型答复。
+
 ## 2026-10-21 规范页先服务人的阅读
 
 用户反馈字段式规范难以理解。本次要发现的失败是：默认仍需先看任务／执行字段，阅读正文暴露内部编号，收起工具后旧规则链接打不开，或无脚本无法取用材料。新增浏览器断言先在旧页面以“默认页应先展示可读的改写例子，0 !== 1”失败；实现后通过。施工中规则入口的测试定位命中6个折叠项，已按目标规则定位，不改变生产行为来绕过断言。

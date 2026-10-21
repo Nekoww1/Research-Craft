@@ -25,12 +25,41 @@ const fs = require('node:fs');
     assert.equal(await page.locator('.ai-rule').count(), 9);
     assert.equal(await page.locator('.ai-example').count(), 3);
     await page.locator('#ai-tools > summary').click();
+    for (const [task, count, example] of [['draft', 8, 'EX-ABS-01'], ['revise', 6, 'EX-ABS-02'], ['audit', 7, 'EX-ABS-03']]) {
+      await page.locator('[data-task="' + task + '"]').click();
+      assert.equal(await page.locator('#task-' + task + ' .task-rule:visible').count(), count);
+      assert.equal(await page.locator('#task-' + task + ' .task-case').getAttribute('data-example-id'), example);
+      await page.locator('#task-' + task + ' [data-copy]').click();
+      const expected = fs.readFileSync(path.join(root, 'ai/abstract/' + task + '.md'), 'utf8').replace(/\r\n/g, '\n');
+      assert.equal((await page.evaluate(() => navigator.clipboard.readText())).replace(/\r\n/g, '\n'), expected);
+      if (task !== 'audit') {
+        await page.locator('#task-' + task + ' .task-preview').evaluate(el => el.scrollIntoView({ block: 'start' }));
+        await page.screenshot({ path: path.join(root, '.local/abstract-task-' + task + '-1536.png') });
+      }
+    }
+    await page.locator('[data-task="draft"]').click();
     assert.equal(await page.locator('[data-panel]:visible').getAttribute('data-panel'), 'draft');
+    assert.ok(await page.locator('#task-draft .task-preview').isVisible(), '任务切换区应展示实际选材');
+    assert.ok(await page.locator('#task-draft .task-preview').innerText().then(t => t.includes('EX-ABS-01') && t.includes('摘要正文')));
     await page.locator('[data-task="draft"]').press('ArrowRight');
     assert.equal(await page.locator('[data-panel]:visible').getAttribute('data-panel'), 'revise');
+    assert.ok(await page.locator('#task-revise .task-preview').innerText().then(t => t.includes('EX-ABS-02') && t.includes('关键修改')));
+    assert.equal(await page.locator('#task-revise .task-rule:visible').count(), 6);
+    await page.locator('#task-revise input[value="R-ABS-03"]').check();
+    assert.equal(await page.locator('#task-revise .task-rule:visible').count(), 7);
+    await page.locator('#task-revise [data-copy]').click();
+    const extended = await page.evaluate(() => navigator.clipboard.readText());
+    assert.ok(extended.includes('#### R-ABS-03') && extended.includes('#### R-ABS-08'));
+    assert.ok(!extended.includes('#### R-ABS-02'));
+    const [download] = await Promise.all([page.waitForEvent('download'), page.locator('#task-revise .ai-download').click()]);
+    const saved = path.join(root, '.local/abstract-revise-custom.md');
+    await download.saveAs(saved);
+    assert.equal(fs.readFileSync(saved, 'utf8').replace(/\r\n/g, '\n'), extended.replace(/\r\n/g, '\n'));
+    await page.locator('#task-revise input[value="R-ABS-03"]').uncheck();
     assert.equal(await page.locator('[data-task="revise"]').getAttribute('aria-selected'), 'true');
     await page.locator('[data-task="revise"]').press('End');
     assert.equal(await page.locator('[data-panel]:visible').getAttribute('data-panel'), 'audit');
+    assert.ok(await page.locator('#task-audit .task-preview').innerText().then(t => t.includes('EX-ABS-03') && t.includes('优先问题表')));
     await page.locator('[data-copy="audit"]').click();
     await page.waitForFunction(() => document.querySelector('#task-audit .ai-copy-status').textContent.includes('已复制'));
     const copied = await page.evaluate(() => navigator.clipboard.readText());
@@ -71,11 +100,12 @@ const fs = require('node:fs');
     await plain.locator('#ai-tools > summary').click();
     assert.equal(await plain.locator('.ai-task-panel:visible').count(), 3);
     assert.equal(await plain.locator('.ai-download:visible').count(), 3);
+    await plain.locator('#rules > summary').click();
     await plain.locator('#R-ABS-04 summary').click();
     assert.ok(await plain.locator('#R-ABS-04 dd').first().isVisible());
     await plainContext.close();
     assert.deepEqual(errors, []);
     await context.close();
-    console.log('PASS: 默认先读例子与讲解、AI字段按需展开；任务/复制/深链接，3桌面/2窄屏、直接文件与无脚本。');
+    console.log('PASS: 3任务实际规则/案例/交付随切换，默认8/6/7条；补选预览/复制/下载同步，旧深链接、3桌面/2窄屏、直接文件与无脚本。');
   } finally { await browser.close(); }
 })().catch(e => { console.error(e); process.exitCode = 1; });
