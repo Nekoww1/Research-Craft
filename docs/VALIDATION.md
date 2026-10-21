@@ -1,5 +1,30 @@
 # 网站验证记录
 
+## 2026-10-21 模块层级与内部设计
+
+要发现的失败：模块标题弱于正文、同类模块遗漏修正、桌面改稿退回纵向排列、两侧修改理由错位，以及视觉改动使来源、搜索或练习不可用。失败则修正具体模块，不用统一换色或继续放大正文代替。
+
+先给 `writing_design_check.cjs` 增加摘要对照标题的最窄回归，在原版以“标题仍小于正文或缺少标题字重”失败；原标题实为 13px 普通字。改造后检查扩至 11 页的 56 处模块标题，要求主要模块标题至少 20px 且有标题字重，次要来源或上下文标签不混作标题。浏览器验证不能衡量阅读欲望或替代用户的视觉判断。
+
+实际执行并通过：
+
+```powershell
+python -X utf8 scripts/build_writing.py --check
+python -X utf8 scripts/verify_site.py
+node --check scripts/writing_design_check.cjs
+$env:NODE_PATH='C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules'
+node scripts/writing_design_check.cjs
+node scripts/writing_check.cjs
+node scripts/browser_check.cjs
+git -c core.autocrlf=false diff --check
+```
+
+- 全部写作页的对照与完整修改在桌面横向排列；摘要示范两侧的修改理由对齐。主要横屏为 1920×1080、1536×864、1366×768，正文维持 18px、32.4px 行高、16px 段距。
+- 批注选择／恢复／Enter／Space、三种 MaxSim 聚合、教学图形、跨页导航／搜索／返回、旧链接和来源弹层通过。768／390 无整页横向溢出，表格仍可局部滚动；直接文件与禁用脚本可读。
+- 静态结果仍为 12 个 HTML、266 个页内唯一锚点、601 个链接、84 处引用；正文源、生成页与索引同步，UTF-8 无 BOM。
+- 人工审阅摘要开头对照、真实摘要旁批、完整改稿、练习、引言改稿、MaxSim、图注和讨论页。截图为 `.local/writing-comparison-*.png`、`writing-studio-*.png`、`writing-design-*.png`；最后一组是 1536×1000 的八个阅读位置。没有把自动断言称为美观已获认可。
+- `.local/` 约 35.2 MiB，包含此前公开材料、本轮截图及临时检查脚本；被忽略，不提交，不自动删除。没有工作区外自建中转目录，没有新增网站依赖或远程资产。
+
 ## 2026-10-21 写作区密度与视觉交互
 
 目标：确认排版确实收紧，功能色对应正确的句子／旁批，聚合切换计算正确，并保持独立页原有阅读能力。正文基线实测 20px、39px 行高、22px 段距；新增检查先以“应为 18px”失败，再实施修改。
